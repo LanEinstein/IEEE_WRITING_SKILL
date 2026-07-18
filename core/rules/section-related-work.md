@@ -48,3 +48,13 @@ When listing several works, `they` is banned like every pronoun (G1): repair
 with `each` plus singular agreement ("each method summarizes ..."), or repeat
 the family name ("these descriptor methods" is banned too because of
 `these`; write "the descriptor methods").
+
+## S-RW-7. Venue-conditional placement and form [PROFILE]
+- **Journal profile**: related work is a mandatory Section II structured per
+  S-RW-1..6.
+- **Conference profile**: placement is free (early, after the method, late,
+  or exceptionally replaced by a positioning/capability check-matrix table
+  whose caption states the fairness notes). The invariant that survives
+  every placement: 2-4 bold-run-in themes, each closing with ONE
+  positioning sentence at the principle level ("Unlike these methods, our
+  method ..."). S-RW-1 (principles only, never results) binds everywhere.

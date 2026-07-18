@@ -25,7 +25,7 @@ findings and the decision guidance below, never from averaging alone.
   argument, restructured section).
 - **MINOR**: local fix (sentence, caption, reference, formatting).
 
-## Decision guidance (calibrated to a top-tier IEEE journal)
+## Decision guidance (calibrated to the Stage-0 target venue; journal decisions below, conference analogue: Accept / Weak Accept / Borderline / Reject)
 - **Accept (rare at first submission)**: no CRITICAL, no MAJOR, D-scores all >= 4.
 - **Minor Revision**: no CRITICAL; MAJOR findings are all fixable without new
   experiments.
@@ -39,9 +39,13 @@ findings and the decision guidance below, never from averaging alone.
    finding, severity >= MAJOR (S-EXP-7).
 2. Purity self-labels ("leakage-free" etc.): automatic MINOR finding with
    the D5 mechanism-statement fix suggested.
-3. Abstract word count outside 150-250 (from the house audit): automatic
-   MAJOR (desk-level formatting risk).
-4. Page count over the venue cap: automatic CRITICAL until fixed.
+3. Abstract word count outside the target venue's gate (journal: 150-250
+   from the house audit; conference: the profile's typical range is
+   advisory, hard caps only where the venue states one): automatic MAJOR
+   for a journal target (desk-level formatting risk).
+4. Page count over the target venue's cap (mechanics tables in
+   `core/literature/venue-style-profiles.md`): automatic CRITICAL until
+   fixed; conference over-length is rejected without review.
 5. Unverifiable references (from the citation report): MAJOR, listed
    entry by entry.
 6. Quantifier drift between abstract/intro/conclusion and the tables:

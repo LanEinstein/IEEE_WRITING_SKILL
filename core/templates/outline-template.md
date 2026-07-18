@@ -11,6 +11,11 @@ Every number cited in the outline must come from the fact sheet
 ```markdown
 # Paper Outline: <working title>
 
+## -1. Target venue and profile
+- Target: journal/conference + specific venue; profile loaded from
+  core/literature/venue-style-profiles.md (state which, and whether the
+  default was assumed). Template, page cap, anonymization mode.
+
 ## 0. Title and thesis
 - Title candidates (2-3), each <= 15 words, problem + approach keyword.
 - One-sentence thesis: the single claim the whole paper defends.

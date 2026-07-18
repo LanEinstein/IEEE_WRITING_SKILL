@@ -34,3 +34,13 @@ is a review-killing defect.
 ## S-CON-4. Disclosure rules apply
 No weakness list, no hedging block. Scope statements, if any, are one plain
 sentence of standard reproducibility or scope, per `disclosure-policy.md`.
+
+## S-CON-5. Venue-conditional close [PROFILE]
+- **Journal profile**: S-CON-1..4 as written.
+- **Conference profile**: a merged "Conclusion and limitations" heading is
+  acceptable; the limitation named is outside the main claim's evaluation
+  envelope, framed as the flip-side of a strength, and paired with a
+  forward path (gap positivization: "While there is still a gap with ...,
+  we believe future work can bridge this using [OURS] as a backbone").
+  House D1-D6 still bind: no protocol self-doubt, no weakness inventory,
+  no hedging of the headline claim.

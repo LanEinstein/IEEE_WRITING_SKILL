@@ -84,10 +84,63 @@ When baselines are re-run in-house, use the fixed formula, present tense,
 once: "For a fair and controlled comparison, we reimplement all baseline
 methods within a common codebase and evaluate them under the same training
 and evaluation protocols as our method." State tuning fairness uniformly and
-only once; repetitions get cut.
+only once; repetitions get cut. (The "them" inside the fixed formula is a
+sanctioned G1 exception, like "this paper": the sweep still counts the hit,
+and a human confirms the hit is the formula.)
 
 ## S-EXP-13. Figures
 Every experiments figure follows `figure-standards.md` (vector or >=300
 dpi, no in-figure titles, scientific colorblind-safe palette, Times New
 Roman, print-legible sizes, unoccluded standard legends, panel labels
 centered below each subplot, real data only).
+
+## S-EXP-14. Claim-verb ladder (both profiles)
+Calibrate the verb to the evidence, ascending: observe/find (raw data) ->
+indicate (several readings converge inside one exhibit) -> suggest (single
+or cross-experiment extrapolation) -> hypothesize / "a possible explanation
+is" (untested conjecture, labeled as such) -> confirm (ONLY a pre-stated
+prediction or a post-control result) -> demonstrate/conclude (independent
+lines converge). "supports" attaches to hypotheses, "confirms" to
+predictions; "consistent with" is reserved for agreement with EXTERNAL
+prior work. Strength adverbs (consistently, substantially, uniformly)
+require full-table evidence; believe/expect appear only in forward-looking
+sentences, never for measured results.
+
+## S-EXP-15. Observation body for ablations and big tables
+After a dense table, the sanctioned narration forms are:
+- "From Table N, we observe: (i) ... (ii) ... (iii) ..." with each item a
+  claim plus its cell numbers; or
+- numbered bold observations: "Obs 1: <one-sentence claim>." followed by
+  "Specifically, <numbers>" and one mechanism clause.
+Both replace cell-by-cell recitation (S-EXP-3 still holds). A summary
+device inside the table (a Wins/ties count row, or a Delta column vs the
+strongest baseline, defined in the caption) turns "top-or-tied" claims into
+checkable table content and is preferred over prose enumeration.
+
+## S-EXP-16. Hypothesis-testing skeleton (analysis/diagnostic subsections)
+When a subsection argues a mechanism rather than a ranking, use the
+falsifiable-prediction loop: (1) state the prediction before the data,
+should-form ("If X drives Y, removing X should ..."); (2) run the targeted
+experiment with the control named in-sentence ("while keeping the outputs
+fixed"); (3) close with the graded verb (S-EXP-14). Where feasible add one
+reverse manipulation (induce or remove the cause on purpose) and one
+named competing explanation actively excluded ("The gain is not explained
+by ..., because ..."). A harmlessness check (the fix does not hurt the
+primary metric) gets its own labeled unit when a fix is proposed.
+
+## S-EXP-17. Error-bar and uncertainty declaration
+Declare the uncertainty convention ONCE, centrally (protocol paragraph or
+first caption): estimator, interval type, and run count ("shaded regions:
+one std over 5 seeds"; "intervals: 95% percentile bootstrap"). Later
+exhibits reference, never redefine. Where runs are deterministic, omit
+error bars rather than fabricate them, without comment. Robustness-knob
+statements ("varying k to 1/2 or 1/4 does not change the claims") back any
+threshold the analysis depends on.
+
+## S-EXP-18. Scope inside the claim
+Qualifiers live inside the claim's noun phrase, not in a separate apology:
+"current X", "on the largest benchmark", "for the three corpora we study".
+A conservative-direction disclosure ("we did not tune the baseline's beta,
+so these results may understate the baseline") is used only when the
+conclusion still favors us under the disclosed conservatism (D1 discipline
+otherwise applies).

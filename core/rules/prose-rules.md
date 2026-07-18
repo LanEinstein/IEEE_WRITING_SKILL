@@ -129,4 +129,8 @@ the story.
 
 ## Precedence
 When a published exemplar (see `core/templates/exemplar-patterns.md`) conflicts
-with a rule in this file, the rule in this file wins.
+with a rule in this file, the rule in this file wins. The same holds for venue
+profiles: `core/literature/venue-style-profiles.md` conditions section
+structure, floats, and register by target venue, but no profile row relaxes
+G1-G15. A venue habit that violates a G rule (for example em-dash-heavy
+conference prose) is not adopted.

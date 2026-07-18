@@ -53,3 +53,21 @@ The abstract is the most-read paragraph: banned pronouns, positive phrasing,
 causal chains, single-value truth, and the em-dash ban (G1-G15) are checked
 sentence by sentence, and the disclosure rules (`disclosure-policy.md`) apply
 unchanged (no self-labels, no proactive weakness).
+
+## S-ABS-6. Venue-conditional abstract mode [PROFILE]
+Load the target profile (`core/literature/venue-style-profiles.md`) before
+drafting:
+- **Journal profile**: the S-ABS-1 skeleton is mandatory. A numeric close is
+  increasingly standard in recent TIP exemplars; equally, several published
+  TIP method papers close qualitatively with named benchmarks. Choose ONE
+  clean headline number when one exists; otherwise name the benchmarks and
+  the qualitative claim. Never enumerate per-dataset results.
+- **Conference profile**: 130-215 words typical. Numbers appear only in
+  compressed forms: ranges ("by 25-75%"), multiples ("32x fewer"),
+  averages with the aggregation declared ("averages of 18.5% higher"), or
+  zero numbers deferring to tables. A code/project link in the abstract is
+  customary. Discovery papers add one central-finding sentence flagged by a
+  strength adverb ("Crucially, we find that ...") and may name the
+  phenomenon in the abstract.
+- Both profiles: every abstract number must be true as stated (G7) and must
+  reappear identically in the experiments section.

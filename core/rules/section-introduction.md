@@ -49,3 +49,21 @@ omit the roadmap: treat omission as an option only if the user asks.)
   and match exactly.
 - Terminology introduced here (module names, metric names) must match the
   method and experiments sections. Grep the manuscript before coining a name.
+
+## S-INT-7. Venue-conditional intro moves [PROFILE]
+- **Journal profile**: S-INT-1..6 as written. Direct questions are rationed
+  to at most one, quoted or italicized, placed as a pivot the next
+  paragraph answers; the default remains statements only. When the paper
+  extends a conference version, add the disclosure paragraph enumerating
+  the deltas ("A preliminary version of this work was presented in [n].
+  The work in this paper is substantially extended in [k] aspects: ...").
+- **Conference profile**: the opener may point to the page-1 teaser instead
+  of a definition sentence; \IEEEPARstart does not apply outside IEEEtran.
+  Contribution bullets (2-4) may embed key delta numbers ("lifts retrieval
+  by +14.8/+15.8") and one bullet may claim simplicity or open-source
+  release. A precisely-scoped first-ness claim is acceptable ("the first X
+  for this class"); scope the class so the claim is checkable. A
+  self-answered question is a legal intro pivot.
+- Both profiles: mirrored enumeration discipline: limitations numbered in
+  the intro must be answered one-for-one by design elements and later by
+  ablation units; no orphan lists.

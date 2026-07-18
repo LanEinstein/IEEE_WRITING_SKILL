@@ -199,3 +199,97 @@ habits.** See "Exemplar defects to avoid" at the end of this file.
    prose. House rule S-EXP-3 restates headlines only.
 4. **Protocol repetition**: exemplars restate protocol details inside later
    subsections. House rule S-EXP-10 states the protocol once.
+
+---
+
+## 5. Conference exemplar patterns (award papers, CVPR/ICCV/NeurIPS/ICML/ICLR/AAAI 2021-2026)
+
+Distilled from a full-main-body read of ~60 best/outstanding papers
+(2026-07-18 re-read; citations by paper name only, no PDFs shipped). Apply
+per the conference profile in `core/literature/venue-style-profiles.md`;
+the house precedence rule stands (G rules win over any habit below).
+
+### 5.1 Phenomenon-naming five steps (ViT-Registers / Safety-Alignment / Lost-in-Conversation pattern)
+1. Name early, once, typographically marked: "We refer to this problem as
+   *shallow safety alignment*" — bold-italic first mention, plain term after.
+2. Operationalize within one paragraph, crudeness admitted: "tokens with
+   norm higher than 150 will be considered 'high-norm' ... This hand-picked
+   cutoff value can vary across models."
+3. Evidence ladder: bold FULL-SENTENCE falsifiable claims as paragraph
+   headers, each followed by one targeted probe ("Artifacts are high-norm
+   outlier tokens."), escalating existence -> conditions -> content ->
+   unification.
+4. Label the hypothesis as a hypothesis: "we make the following
+   hypothesis: ...", "we posit that: If ...".
+5. Make the fix deliberately small and say so: "We therefore propose a
+   simple fix"; "with a single line of additional code" (AlphaEdit).
+
+### 5.2 Prediction loop and verb closure (EmergentMirage pattern)
+- Pre-register: "our alternative explanation makes three predictions:" with
+  should-form sentences BEFORE the data.
+- Close with the two-tier verbs: "This confirms our first prediction and
+  supports our alternative explanation that ..." — confirms binds to
+  predictions, supports binds to hypotheses; "consistent with" is reserved
+  for external prior work.
+- Control named in-sentence: "while keeping the models' outputs fixed".
+- Reverse manipulation: induce or remove the cause on purpose (induce fake
+  emergence; de-sparsify the gate; match entropy by temperature).
+- Double-sided fence for deflationary claims: "We emphasize that nothing in
+  this paper should be interpreted as claiming X; rather, our message is Y."
+
+### 5.3 Ablation observation body (AlphaEdit / Informer pattern)
+- "Based on Table 1, we can draw the following observations:" then
+  "Obs 1: <bold one-sentence claim>. Specifically, <numbers>. These gains
+  arise from <mechanism>."
+- Or enumerated: "From the results it can be observed that: (1) ... (2) ...".
+- Table summary devices: a bottom Count/wins row ("the Informer beats its
+  canonical degradation mostly in wining-counts, i.e., 32>12"); a Delta or
+  Gain column vs the best baseline, defined in the caption.
+- Variant-symbol genealogy for ablations: dagger/double-dagger/section
+  symbols defined once in a table footnote, each removing one component.
+- Harmlessness check as its own named unit: "Performance regression. ...
+  using register not only does not degrade performance, but even improves
+  it by a slight margin in some cases."
+
+### 5.4 Gap positivization grammar (SEDD / Genie / StealingLM pattern)
+Concessive subordinate clause + main clause of belief/roadmap, own artifact
+as the bridge: "While there is still a large gap with modern large language
+models, we believe that future work can bridge this using SEDD as a
+backbone." / "Still, we believe Genie opens up vast potential for future
+research." Never a bare admission; never adjacent to the headline claim.
+
+### 5.5 Abstract number condensation (conference)
+Ranges: "reducing perplexity by 25-75%"; multiples: "similar quality with
+32x fewer network evaluations"; declared aggregation: "averages of 18.5%
+higher task performance"; cost anchors: "For under $20 USD, our attack
+extracts ..."; central-finding flag: "Crucially, we find that tau_mem
+increases linearly with n." Raw per-benchmark values stay in tables.
+
+### 5.6 Statistics-register exemplars
+- Declared-once error bars: "Error bars in the figures correspond to twice
+  the standard deviation over 5 different test sets" (then never repeated).
+- Robustness knob: "we checked that varying k to 1/2 or 1/4 does not impact
+  the claims about the scaling."
+- Framework justification when a nonstandard scheme is used: "we will
+  generally use 95% confidence in our experiments, comparable to the use of
+  p < 0.05 in science literature" (+ naming the guarantee type).
+- Aggregation scope welded to the number: "Each row is averaged over ~500
+  generated sequences of length T = 200 +- 5."
+- Anti-cherry-picking declarations for qualitative walls: "we show a random
+  batch of 6 samples without cherry-picking"; "fair random samples ... with
+  no post-processing or re-ranking."
+- Evaluation-culture split to respect: reinforcement-learning/evaluation
+  papers follow Statistical-Precipice prescriptions (stratified bootstrap
+  CIs, IQM, CI of the DIFFERENCE when intervals overlap); generative-SOTA
+  papers report single FID-style values with controlled seeds instead.
+  Adopt one culture and stay internally consistent.
+
+### 5.7 Conference-only habits that do NOT port to a journal target
+- Full rank-heatmap table shading; colored best/second text as sole marker.
+- Em-dash-heavy prose (G11 bans regardless of venue).
+- Radical-honesty register ("We do not understand this presently.") — the
+  journal register resolves or scopes, never shrugs.
+- Question-form section headings sprinkled at will (journal ration: at most
+  one pivot question).
+- Checklist-driven limitations inventories (house D1-D6 governs; see
+  profile row on limitations).

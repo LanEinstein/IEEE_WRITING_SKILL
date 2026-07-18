@@ -58,3 +58,30 @@ The overview-figure caption is self-contained: name every numbered block,
 state which subsection details each block, and avoid derived numbers that the
 figure does not display. Module names in the figure must equal the subsection
 titles character for character.
+
+## S-MET-8. Diagnostic figure next to the choice it justifies
+When a design choice rests on measured evidence (a spectrum, a histogram, a
+training-curve phenomenon), place one diagnostic figure IN the method
+section beside that choice, per FIG-10 of `figure-standards.md`: the figure
+answers "why this design", carries real data with provenance, and its
+caption states the design conclusion. Do not bury design-justifying
+evidence in the ablation section.
+
+## S-MET-9. Equation-to-intuition weaving (both profiles)
+Beyond the `where` clause (S-MET-3): after each load-bearing equation, one
+plain-language sentence states the physical or operational reading
+("Intuitively, ..."; "Eq. (k) says that ..."). Long losses may name their
+terms with underbraces inside the equation so prose can reference "the
+first term". Where notation is heavy, a short background subsection
+pre-loads the classical objects so the method section reads as
+substitutions into known equations. Theorems are never naked: a
+plain-language restatement or implication sentence follows every formal
+statement, with the proof deferred and pointed to.
+
+## S-MET-10. Run-in bold headers [PROFILE]
+- **Conference profile**: bold run-in paragraph headers are the primary
+  sub-structure (noun-style in method: "Pointwise decoder."), replacing
+  deep subsection nesting.
+- **Journal profile**: numbered subsections remain the default; run-in
+  labels ("1) Xxx:", "Discussion:") are the device BELOW the last numbered
+  level, used sparingly and consistently.

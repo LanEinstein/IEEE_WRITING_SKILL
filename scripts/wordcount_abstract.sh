@@ -23,6 +23,18 @@ fi
 
 COUNT=$(printf '%s\n' "$ABS" | wc -w)
 echo "abstract-words: $COUNT"
+
+# Secondary, informational only: a TeX-aware count when texcount exists.
+# The gate stays on the primary stripped-wc metric (the project's
+# established counting convention).
+if command -v texcount >/dev/null 2>&1; then
+  RAWTMP=$(mktemp --suffix=.tex)
+  perl -pe 's/((?:^|[^\\])(?:\\\\)*)%.*/$1/' "$1" \
+    | sed -n '/\\begin{abstract}/,/\\end{abstract}/p' > "$RAWTMP"
+  TCOUNT=$(texcount -1 -sum -q "$RAWTMP" 2>/dev/null | grep -oE '^[0-9]+' | head -1)
+  rm -f "$RAWTMP"
+  [ -n "${TCOUNT:-}" ] && echo "texcount-words: $TCOUNT (informational)"
+fi
 if [ "$COUNT" -lt 150 ] || [ "$COUNT" -gt 250 ]; then
   echo "GATE: FAIL (outside 150-250; see core/templates/ieee-facts.md)"
   exit 1

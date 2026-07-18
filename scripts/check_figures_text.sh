@@ -30,7 +30,8 @@ while IFS= read -r pdf; do
   if [ -n "$TERM" ]; then
     HITS=$(printf '%s\n' "$TEXT" | grep -inF -- "$TERM")
     COUNT=$(printf '%s' "$HITS" | grep -c .)
-    echo "[$(basename "$pdf")] matching lines for '$TERM': $COUNT"
+    OCC=$(printf '%s\n' "$TEXT" | grep -oiF -- "$TERM" | grep -c .)
+    echo "[$(basename "$pdf")] '$TERM': $OCC occurrence(s) on $COUNT line(s)"
     [ "$COUNT" -gt 0 ] && { printf '%s\n' "$HITS" | head -10 | sed 's/^/    /'; FOUND_ANY=1; }
   else
     echo "===== $(basename "$pdf") (first 40 nonblank lines, preview) ====="

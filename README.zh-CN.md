@@ -2,7 +2,7 @@
 
 # IEEE Paper Suite
 
-**以硬门控、单一真相源的工作流<br>完成 IEEE 顶刊论文的写作、润色与模拟审稿。**
+**以按投稿目标定向、硬门控、单一真相源的工作流<br>完成顶刊顶会论文的写作、润色、模拟审稿与风格审查。**
 
 <br>
 
@@ -20,10 +20,14 @@
 
 ## 开发背景
 
-通用 AI 写作工具产出的论文机器味明显,达不到顶刊语言水准。差距不在模型,
+通用 AI 写作工具产出的论文机器味明显,达不到顶刊顶会语言水准。差距不在模型,
 而在缺失的手艺:资深作者在真实改稿中逐段执行的那套规范。本套件把这套手艺
-固化下来。规范提炼自一篇 IEEE Transactions 稿件的逐段改稿实录与五篇已发表
-IEEE TIP 论文的逐节分析,落成单一权威规则库与硬门控工作流,任何步骤不可绕过。
+固化下来。规范提炼自一篇 IEEE Transactions 稿件的逐段改稿实录、十篇已发表
+TPAMI/TIP 论文的逐节分析,以及约 60 篇 CVPR/ICCV/NeurIPS/ICML/ICLR/AAAI
+best/outstanding 论文(2021–2026)的正文精读,落成单一权威规则库与硬门控
+工作流,任何步骤不可绕过。全套工作流按投稿目标定向:投期刊载入 TPAMI/TIP
+profile,投会议载入对应顶会 profile,结构、图表、语域一律跟随目标而非固定
+IEEE 默认。
 
 ## 主要功能
 
@@ -31,12 +35,17 @@ IEEE TIP 论文的逐节分析,落成单一权威规则库与硬门控工作流,
 |:--|:--|:--|
 | **`/ieee-write`** | 扫描代码库产出事实表,交付大纲,批准后按方法、实验、相关工作、引言、摘要、结论逐段撰写 | 大纲审批 + 每段明确 `go` |
 | **`/ieee-polish`** | 对任意 `.tex` 逐段给出"原文 → 新文"提案表,按内建规范逐句体检 | 未经 `go` 不落一字 |
-| **`/ieee-review`** | 五人设模拟外审(编辑、方法统计、领域、写作、魔鬼代言人)+ 仅作者可见的合规审计,附决策预估 | 只读,绝不改稿 |
+| **`/ieee-review`** | 五人设模拟外审(编辑/领域主席、方法统计、领域、写作、魔鬼代言人)+ 仅作者可见的合规审计,附决策预估 | 只读,绝不改稿 |
+| **`/ieee-style`** | 按投稿目标的全文风格符合性审查:结构、摘要模式、语域、图、表、teaser、caption、页数/模板合规,对照目标 venue profile 逐维度审 | 只读,绝不改稿 |
 
 典型优势:
 
+- **按投稿目标定向而非固定 venue**:每个工作流 Stage 0 先确认投稿目标并载入
+  对应风格 profile(`core/literature/venue-style-profiles.md`):模板与页数、
+  结构配比、摘要模式、teaser 与 caption 惯例、表格用色上限、claim 语域、
+  limitations 处理全部跟随目标 venue。
 - **单源规则库**:全局文风、分章节规范、披露策略、引用政策、绘图标准、
-  验证协议全部收敛于 `core/`,工作流整文件读取,规则无从漂移。
+  venue profile、验证协议全部收敛于 `core/`,工作流整文件读取,规则无从漂移。
 - **一切实测、绝不编造**:字数、页数、编译健康度、零容忍文风扫描均由脚本
   给出逐条计数;引用经 Crossref/OpenAlex 实时核验,配 venue 分层门禁与
   arXiv 拦截。
@@ -55,14 +64,16 @@ cd ieee-paper-suite
 ./install.sh --all      # 两者
 ```
 
-随后在论文项目中唤醒 `/ieee-write`、`/ieee-polish` 或 `/ieee-review`。
-依赖:`pdflatex`、`bibtex`、`pdftotext`、POSIX 工具链、可联网的 Python 3。
+随后在论文项目中唤醒 `/ieee-write`、`/ieee-polish`、`/ieee-review` 或
+`/ieee-style`。依赖:`pdflatex`、`bibtex`、`pdftotext`、POSIX 工具链、
+可联网的 Python 3。
 
 ## 目录结构
 
 ```
-skills/     三个入口:ieee-write / ieee-polish / ieee-review(各含 SKILL.md)
+skills/     四个入口:ieee-write / ieee-polish / ieee-review / ieee-style
 core/       单一权威:rules/ 规则、templates/ 模板、review/ 审稿、literature/ 文献
+            (含 venue-style-profiles.md 期刊/顶会风格 profile)
 scripts/    verify_tex、sweep_prose、wordcount_abstract、check_figures_text、
             verify_citations、leak_scan
 adapters/   codex/(prompt 与 AGENTS 片段)、generic/(任意 agent 快速接入)

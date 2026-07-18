@@ -10,10 +10,13 @@ workflows: nothing in `core/` depends on a specific model or harness.
 Give the agent one instruction:
 
 > The IEEE Paper Suite is installed at `<absolute suite root>`. To run the
-> [write | polish | review] workflow, read
-> `<root>/skills/ieee-[write|polish|review]/SKILL.md` in full and follow the
-> stages exactly, reading every named core file in full before the stage
-> that needs the file. Treat `<suite>` in those files as `<root>`.
+> [write | polish | review | style] workflow, read
+> `<root>/skills/ieee-[write|polish|review|style]/SKILL.md` in full and
+> follow the stages exactly, reading every named core file in full before
+> the stage that needs the file. Treat `<suite>` in those files as `<root>`.
+> Confirm the submission target (journal or conference plus venue) in
+> Stage 0 and load the matching profile from
+> `<root>/core/literature/venue-style-profiles.md`.
 
 ## Environment expectations
 - Shell with `pdflatex`, `bibtex`, `pdftotext`, `grep`, `sed`, `wc`

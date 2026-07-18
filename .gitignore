@@ -1,0 +1,30 @@
+# Machine-local configuration and pointers (never shipped)
+local/*
+!local/config.example.md
+
+# Development/handoff documents (this machine only, never shipped)
+HANDOFF_PROMPT.md
+CHEATSHEET_ABSOLUTE_PATHS.md
+IMPLEMENTATION_PLAN.md
+
+# Per-run outputs (live in the user's paper project, but guard anyway)
+paper/
+*.ieee_baseline.json
+
+# LaTeX intermediates
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+*.toc
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+
+# Python
+__pycache__/
+*.pyc
+
+# OS noise
+.DS_Store

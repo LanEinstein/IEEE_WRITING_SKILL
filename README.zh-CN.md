@@ -5,8 +5,6 @@
 三个可独立唤醒的工作流,把研究代码库做成地道学术英文的 IEEE 顶刊稿:
 **ieee-write**(写作)、**ieee-polish**(润色)、**ieee-review**(模拟审稿)。
 
-> 本文件仅为文档;套件运行时加载的全部指令、规则与模板均为英文。
-
 ## 开发背景
 
 通用 AI 写作工具产出的论文机器味明显,达不到顶刊语言水准。差距不在模型,
@@ -49,8 +47,6 @@ cd ieee-paper-suite
   仅作者可见的内部合规审计。
 
 依赖:`pdflatex`、`bibtex`、`pdftotext`、POSIX 工具链、可联网的 Python 3。
-机器本地指针(范例稿路径等)写入 `local/config.md`
-(参见 `local/config.example.md`),`local/` 内容永不入库。
 
 ## 目录结构
 

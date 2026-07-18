@@ -63,10 +63,7 @@ Then, in your paper project:
   review with a decision estimate, and an author-only compliance audit.
 
 Requirements: `pdflatex`, `bibtex`, `pdftotext`, standard POSIX tools, and
-Python 3 with network access for citation verification. Optional
-machine-local pointers (an exemplar manuscript, exemplar PDF directory) go
-into `local/config.md` (see `local/config.example.md`); nothing under
-`local/` is ever shipped.
+Python 3 with network access for citation verification.
 
 ## Directory Structure
 

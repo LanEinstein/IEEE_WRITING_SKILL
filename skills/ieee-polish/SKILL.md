@@ -1,6 +1,6 @@
 ---
 name: ieee-polish
-description: Paragraph-by-paragraph polishing of an IEEE manuscript to idiomatic academic English under hard house rules, with per-paragraph user approval. Use when the user asks to polish, line-edit, or improve the English of a .tex manuscript (written by this suite or not), or invokes /ieee-polish. Proposes original-to-new edits per paragraph and applies nothing without an explicit go.
+description: Paragraph-by-paragraph polishing of a top-journal or top-conference manuscript to idiomatic academic English under hard house rules and the target venue's style profile, with per-paragraph user approval. Use when the user asks to polish, line-edit, or improve the English of a .tex manuscript (written by this suite or not), or invokes /ieee-polish. Proposes original-to-new edits per paragraph and applies nothing without an explicit go.
 license: CC BY-NC 4.0, (c) 2026 Lan Zhang
 ---
 
@@ -14,7 +14,14 @@ edits NOTHING without an explicit per-paragraph approval.
    suite root is two levels up from the resolved path.
 2. Identify the target .tex with the user, and the scope (whole manuscript
    or named sections).
-3. Read IN FULL: `<suite>/core/rules/workflow-gates.md`,
+3. Confirm the **submission target** (journal or conference, plus the
+   specific venue). If unstated, ask once; if still undecided, use
+   journal-TPAMI/TIP as the safe default and state the assumed profile.
+   Read `<suite>/core/literature/venue-style-profiles.md` IN FULL and load
+   the matching profile: the line edit is calibrated to that venue's
+   register (question usage, caption style, claim strength, limitations
+   handling, emphasis budget). House rules still win over profile rows.
+4. Read IN FULL: `<suite>/core/rules/workflow-gates.md`,
    `<suite>/core/rules/prose-rules.md`,
    `<suite>/core/rules/disclosure-policy.md`, and
    `<suite>/core/rules/verification-protocol.md`.

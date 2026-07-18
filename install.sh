@@ -13,7 +13,7 @@ install_claude() {
   local dest="$HOME/.claude/skills"
   mkdir -p "$dest"
   local name
-  for name in ieee-write ieee-polish ieee-review; do
+  for name in ieee-write ieee-polish ieee-review ieee-style; do
     ln -sfn "$ROOT/skills/$name" "$dest/$name"
     echo "linked: $dest/$name -> $ROOT/skills/$name"
   done

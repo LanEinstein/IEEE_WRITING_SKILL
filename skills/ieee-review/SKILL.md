@@ -1,6 +1,6 @@
 ---
 name: ieee-review
-description: Simulated peer review of an IEEE manuscript by a five-persona panel (editor, methodology, domain, writing, devil's advocate) plus a house compliance audit, producing a severity-ranked findings report with a decision estimate. Use when the user asks for a review, mock review, referee report, or pre-submission check, or invokes /ieee-review. Modes are full, quick, and re-review. Read-only, never edits the manuscript.
+description: Simulated peer review of a top-journal or top-conference manuscript by a five-persona panel (editor, methodology, domain, writing, devil's advocate) plus a house compliance audit, calibrated to the target venue's profile and producing a severity-ranked findings report with a decision estimate. Use when the user asks for a review, mock review, referee report, or pre-submission check, or invokes /ieee-review. Modes are full, quick, and re-review. Read-only, never edits the manuscript.
 license: CC BY-NC 4.0, (c) 2026 Lan Zhang
 ---
 
@@ -18,7 +18,16 @@ document.
    the user: `full` (five personas), `quick` (editor + methodology only), or
    `re-review` (requires the prior report path, and the response letter if
    one exists).
-3. Read IN FULL: `<suite>/core/review/personas.md`,
+3. Confirm the **submission target** (journal or conference, plus the
+   specific venue). If unstated, ask once; if still undecided, use
+   journal-TPAMI/TIP as the safe default and state the assumed profile.
+   Read `<suite>/core/literature/venue-style-profiles.md` IN FULL and load
+   the matching profile: R-EIC reviews as an editor/area chair of the
+   TARGET venue, the rubric's abstract-word and page-cap hard checks take
+   their numbers from the profile's mechanics tables, and style
+   expectations (teaser, captions, limitations, statistics culture) are
+   judged against the target profile, not against a fixed IEEE default.
+4. Read IN FULL: `<suite>/core/review/personas.md`,
    `<suite>/core/review/rubric.md`, `<suite>/core/review/da-protocol.md`,
    `<suite>/core/review/report-format.md`, and
    `<suite>/core/templates/ieee-facts.md`.

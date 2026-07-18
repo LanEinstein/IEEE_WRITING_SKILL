@@ -9,10 +9,12 @@ if [ $# -lt 1 ] || [ ! -f "$1" ]; then
   exit 2
 fi
 
-ABS=$(sed -n '/\\begin{abstract}/,/\\end{abstract}/p' "$1" \
+# Comments are stripped BEFORE locating the abstract, so a commented-out
+# \begin{abstract} can never select the wrong region.
+ABS=$(perl -pe 's/((?:^|[^\\])(?:\\\\)*)%.*/$1/' "$1" \
+  | sed -n '/\\begin{abstract}/,/\\end{abstract}/p' \
   | sed -e 's/\\begin{abstract}//' -e 's/\\end{abstract}//' \
-        -e 's/\(^\|[^\\]\)%.*/\1/' \
-        -e 's/\\[a-zA-Z@]*//g' -e 's/[{}~]//g')
+        -e 's/\\[a-zA-Z@]*//g' -e 's/[{}]//g' -e 's/~/ /g')
 
 if [ -z "$(printf '%s' "$ABS" | tr -d '[:space:]')" ]; then
   echo "ERROR: no abstract environment found in $1" >&2

@@ -1,107 +1,99 @@
-<div align="center">
-
 # IEEE Paper Suite
 
-**Write, polish, review, and style-audit top-journal and top-conference manuscripts<br>with venue-targeted, hard-gated, single-source-of-truth workflows.**
+Write, polish, and review an evidence-grounded manuscript for IEEE journals and for top conferences (CVPR/ICCV, NeurIPS, ICML, ICLR, AAAI). Start from a blank document or from the exact paragraph you need. The suite is model-agnostic Markdown: it states the rules, the file each rule lives in, and the checks that make them visible.
 
-<br>
+[中文说明](README.zh-CN.md) · [CC BY-NC 4.0](LICENSE)
 
-[![English](https://img.shields.io/badge/English-README-2ea44f?style=for-the-badge)](README.md)
-[![Chinese](https://img.shields.io/badge/%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87-%E8%AF%B4%E6%98%8E%E6%96%87%E6%A1%A3-1f6feb?style=for-the-badge)](README.zh-CN.md)
+## Choose the task
 
-[![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey.svg)](LICENSE)
-[![Claude Code](https://img.shields.io/badge/Claude%20Code-ready-d97757.svg)](#installation-and-usage)
-[![Codex CLI](https://img.shields.io/badge/Codex%20CLI-ready-412991.svg)](#installation-and-usage)
-[![Model Agnostic](https://img.shields.io/badge/core-model--agnostic-8a2be2.svg)](adapters/generic/QUICKSTART.md)
+| Entry | Use it for | Editing behavior |
+| --- | --- | --- |
+| `ieee-write` | A new paper, a section draft, an argument reconstruction | Completes the requested draft; respects explicit proposal/outline gates |
+| `ieee-polish` | Clearer academic English, stronger paragraphs, a revision round | Applies within the authorization given; proposal-only when asked |
+| `ieee-review` | Scientific claims, method, protocol, evidence, positioning | Manuscript sources stay read-only; produces a scoped report |
+| `ieee-style` | Structure, sentences, terminology, figures, target formatting | Manuscript sources stay read-only; produces a scoped report |
 
-</div>
+No compulsory paragraph-by-paragraph "go". Review granularity follows the user; paragraph architecture stays rigorous. A small task gets a short work card, not a new documentation package. Unknown venues, missing tools and local evidence gaps are reported explicitly while useful independent work continues.
 
----
+## Use now
 
-## Background
+Point a file-capable agent at the matching `skills/ieee-*/SKILL.md`. Installed Codex skills answer to `$ieee-write`; Claude Code answers to `/ieee-write`. [Generic setup](adapters/generic/QUICKSTART.md).
 
-Generic AI writing tools produce papers that read as machine-generated and
-fall short of top-venue language standards. The gap is not the model; the
-gap is the missing craft: the rules a senior author enforces during real
-revision rounds. The suite freezes that craft, distilled from
-paragraph-by-paragraph revision of an IEEE Transactions manuscript, from a
-section-by-section analysis of ten published TPAMI/TIP papers, and from a
-main-body read of ~60 best/outstanding papers at CVPR, ICCV, NeurIPS, ICML,
-ICLR, and AAAI (2021-2026), into a single-source rule library and
-hard-gated workflows that no step can skip. Every workflow is
-venue-targeted: a journal target loads the TPAMI/TIP profile, a conference
-target loads the matching conference profile, and structure, figures,
-tables, and register follow the target rather than a fixed IEEE default.
+```text
+Use ieee-polish. Revise only Sec. 5.2. Keep the numbers and the comparison scope.
+Show each paragraph as a proposal with its reason; apply after I approve.
+```
 
-## Features
+```text
+Use ieee-write. The method notes and the final results are in this project.
+Draft the journal paper from the active main.tex and the existing storyline; no number changes.
+```
 
-| Workflow | What it does | Hard gate |
-|:--|:--|:--|
-| **`/ieee-write`** | Scans your codebase into a fact sheet, delivers an outline, then drafts paragraph by paragraph (Method, Experiments, Related Work, Introduction, Abstract, Conclusion) | Outline approval, then an explicit `go` per paragraph |
-| **`/ieee-polish`** | Line-edits any `.tex` against the house rules, one paragraph at a time, as `original -> proposed` tables | Nothing is applied without your `go` |
-| **`/ieee-review`** | Five-persona simulated peer review (editor/area chair, methodology, domain, writing, devil's advocate) plus an author-only compliance audit, with a decision estimate | Read-only by design |
-| **`/ieee-style`** | Venue-targeted full-manuscript style-conformance review: structure, abstract mode, register, figures, tables, teaser, captions, page/template compliance, judged against the target venue's profile | Read-only by design |
+```text
+Use ieee-style. Audit Related Work: each subsection's second paragraph and the positioning logic. Propose, do not edit.
+```
 
-What makes the suite different:
+The agent loads [the shared workflow](core/WORKFLOW.md) and the **full rule set for the requested unit**, not everything for every request. [One-page checklist](QUICK_REFERENCE.md) · [sentence-plan index](core/templates/sentence-plan.md) · [workspace](core/templates/writing-workspace.md).
 
-- **Venue-targeted, not venue-fixed.** Every workflow confirms the
-  submission target in Stage 0 and loads the matching style profile
-  (`core/literature/venue-style-profiles.md`): template and page caps,
-  structure ratios, abstract mode, teaser and caption conventions, table
-  color ceilings, claim register, and limitations handling all follow the
-  target venue.
-- **A single-source rule library.** Global prose rules, per-section rules
-  (abstract through conclusion), disclosure policy, citation policy,
-  figure standards, venue profiles, and a verification protocol live in
-  `core/` as the only authority; workflows read the files whole, so rules
-  cannot drift.
-- **Everything measured, nothing invented.** Word counts, page limits,
-  compile health, and zero-tolerance style sweeps come from scripts with
-  verbatim counts. Citations are verified against live indexes (Crossref,
-  OpenAlex) with a venue-tier gate and arXiv interception.
-- **A review panel that pushes back.** Paper-blind pre-commitment,
-  anti-sycophancy rules for the devil's advocate, severity-ranked findings
-  with quoted evidence, and a calibrated decision estimate.
-- **Model-agnostic core.** Plain markdown and scripts; adapters ship for
-  Claude Code and Codex, and any agent that reads files and runs commands
-  can drive the suite.
+## What the rules cover
 
-## Installation and Usage
+Nine shared rule files sit under `core/rules/`; each section blueprint ends with a hardened checklist distilled from rejected drafts.
+
+| Concern | Rule file |
+| --- | --- |
+| Selling the work, positive framing, claim scope, sensitive applications | [voice-and-positioning.md](core/rules/voice-and-positioning.md) |
+| One argument per paragraph, governing first sentence, analysis after each observation, endings | [paragraph-architecture.md](core/rules/paragraph-architecture.md) |
+| Information order, true connectives, repetition control, referents, punctuation | [sentence-craft.md](core/rules/sentence-craft.md) |
+| Word register, banned forms, replacements | [lexicon.md](core/rules/lexicon.md) |
+| Writing English instead of translating Chinese; the eight structures behind bad English | [translation-discipline.md](core/rules/translation-discipline.md) |
+| Revision scope, preservation list, check order, self-review | [revising.md](core/rules/revising.md) |
+| Simulated review, real reader feedback, multi-pass read-through, review pages | [review-loops.md](core/rules/review-loops.md) |
+| Terms, abbreviations, symbols, formulas | [terminology-and-notation.md](core/rules/terminology-and-notation.md) |
+| Page budget, spacing, orphans, TeX and PDF hygiene | [layout-and-build.md](core/rules/layout-and-build.md) |
+
+Section blueprints: [Abstract A1–A9](core/rules/section-abstract.md) · [Introduction P1–P8](core/rules/section-introduction.md) · [Related Work](core/rules/section-related-work.md) · [Method](core/rules/section-methodology.md) · [Experiments E1–E6](core/rules/section-experiments.md) · [Conclusion](core/rules/section-conclusion.md). Evidence and permission: [evidence-and-claims.md](core/rules/evidence-and-claims.md), [citations-policy.md](core/rules/citations-policy.md), [workflow-gates.md](core/rules/workflow-gates.md). Figures: [figure-standards.md](core/rules/figure-standards.md).
+
+## Checks you can run
+
+Dependency-free Python 3, no network:
 
 ```bash
-git clone git@github.com:LanEinstein/IEEE_WRITING_SKILL.git ieee-paper-suite
-cd ieee-paper-suite
-./install.sh            # Claude Code (symlinks into ~/.claude/skills/)
-./install.sh --codex    # Codex CLI (slash prompts + AGENTS.md snippet)
+python3 scripts/prose_lint.py main.tex --quiet        # H must be 0; then read the S list
+python3 scripts/pronoun_check.py main.tex --quiet     # referents for this/these/it/its/...
+python3 scripts/review_page.py round.json -o round.html   # approve/comment page, exports JSON
+```
+
+`prose_lint.py` reports Chinese-origin structures, paired cause-effect connectives, participial openers, banned vocabulary, colons in prose, a connective twice per paragraph, repeated phrases, long sentences and absolutes. It also prints the most repeated content words of each file. H = hard fault (rewrite), S = review, I = prompt for the manual reading tests. Captions are always scanned; `--include-floats` also scans float bodies; `--banned file` adds a project word list.
+
+`review_page.py` turns a round of proposals into one offline HTML page: original, proposed (word-diffed), reason, approve control, comment box, optional variants, local persistence, JSON export. It implements the loop in [review-loops.md](core/rules/review-loops.md) §RL4.
+
+Bash helpers stay available: `sweep_prose.sh`, `wordcount_abstract.sh`, `check_figures_text.sh`, `verify_tex.sh`, `leak_scan.sh`, `verify_citations.py`. They are diagnostics: a zero count is not proof of correctness, and a hit needs context. Scope and limits: [verification-protocol.md](core/rules/verification-protocol.md).
+
+## Install
+
+```bash
+./install.sh            # Claude skill links
+./install.sh --codex    # Codex skill links, legacy prompts, optional AGENTS snippet
 ./install.sh --all      # both
+./install.sh --check    # self-test: links, scripts, rule-file references
 ```
 
-Then invoke `/ieee-write`, `/ieee-polish`, `/ieee-review`, or `/ieee-style`
-inside your paper project. Requirements: `pdflatex`, `bibtex`, `pdftotext`,
-standard POSIX tools, and Python 3 with network access for citation
-verification.
+Installation never edits project or global AGENTS files and preserves unrelated skill directories. Start a fresh host session if its skill list is cached. `local/config.md` holds private machine pointers only; the target, paths and authorization belong to the session or the project. A project may extend the lexicon with `--banned`.
 
-## Directory Structure
+Basic prose work needs file access, not a TeX toolchain. Optional verification uses Python 3, Bash/GNU tools, pdfLaTeX+BibTeX (only the build helper) and Poppler; citation lookup needs network. Follow the project's existing engine: missing tools give a useful draft with explicit pending checks.
 
-```
-skills/     Entry points: ieee-write, ieee-polish, ieee-review, ieee-style
-core/       Single-source authority: rules/, templates/, review/, literature/
-            (incl. venue-style-profiles.md, the journal/conference profiles)
-scripts/    verify_tex, sweep_prose, wordcount_abstract, check_figures_text,
-            verify_citations, leak_scan
-adapters/   codex/ (prompts + AGENTS snippet), generic/ (any-agent quickstart)
-local/      Machine-local config (gitignored except the example)
-```
+## What the profile enforces
 
-## Acknowledgments
+- Abstract A1–A9 and Introduction P1–P8 with sentence-level tasks and real motivation chains.
+- Related Work: two paragraphs per theme; the positioning paragraph 2–3 sentences, 35–65 words, never longer than the first.
+- Method: headings, figure nodes, symbols, axes, equations, inputs/outputs and training/inference state agree.
+- Experiments: every paragraph topic-first, results explained operationally (E1–E6), counterevidence kept, inference bounded.
+- Revision: the claim, the numbers and the comparator survive; length does not grow unless asked; every round closes with what was applied, rejected and left open.
 
-Sincere thanks to Prof. Xiankai Lu of Shandong University for his guidance
-and support.
+These are house defaults for journal method papers. Actual research content and the current official venue, article-type and stage requirements constrain them. No invented results, citations, modules, statistical equivalence, experiments or false external review. Theory, application, system and conference tasks adapt their own evidence and format; no blanket page cap, tier-only citation gate or mandatory diagnostic figure.
 
-## License
+## Acknowledgments and license
 
-<div align="center">
+Sincere thanks to Prof. Xiankai Lu of Shandong University for his guidance and support.
 
-© Lan Zhang · [CC BY-NC 4.0](LICENSE) · non-commercial use only · attribution required
-
-</div>
+© 2026 Lan Zhang · [CC BY-NC 4.0](LICENSE) · non-commercial use only; attribution required.

@@ -1,132 +1,62 @@
 <!-- (c) 2026 Lan Zhang. CC BY-NC 4.0. Part of the IEEE Paper Suite. -->
 
-# Figure and Table-Presentation Standards (FIG-1..FIG-13)
+# Figures, tables, captions, and visual results
 
-Binding standards for every figure produced during the writing workflow
-(experiment plots, diagnostic panels, per-class bars, parameter sweeps).
-Main-concept figures drawn by the user follow the same standards; the
-outline's drawing suggestions must restate the relevant items.
-FIG-9..FIG-13 are venue-conditional: apply them per the loaded profile in
-`core/literature/venue-style-profiles.md` (journal vs conference).
+## FIG1. Start from a question and real sources
 
-## FIG-1. Resolution
-Vector output (PDF) is the default. Any raster export is at least 300 dpi
-AT THE FINAL PRINT SIZE. Never upscale a low-resolution render.
+For each float record the reader's question, necessary content, source/version, comparison, statistical meaning, and text location. Concepts depict actual method relationships; evidence figures use existing data with provenance. No writing rule requires a new diagnostic run, cost experiment, or scatterplot. Do not fabricate data or infer a method from an outdated figure.
 
-## FIG-2. No in-figure titles
-Figures carry no title text inside the image (no suptitle, no per-axes
-title). The LaTeX caption carries all description. Axis LABELS (quantity and
-unit) are required and are not titles.
+## FIG2. Method semantics and names
 
-## FIG-3. Scientific color scheme
-Use a colorblind-safe, muted scientific palette, consistent across ALL
-figures of the manuscript (one palette per paper). No default rainbow or
-saturated primary palettes. Series that must be distinguished in grayscale
-print get distinct markers or hatching in addition to color.
+Check inputs/outputs, branch roles, frozen/trainable parameters and normalization state, gradient paths, adapters, stage numbering, axes, loss edges, and inference. Every meaningful heading maps to a canonical node or declared panel/acronym via [title-figure-symbol-map.md](../templates/title-figure-symbol-map.md). Composite headings map to their actual components. Small operators need no separate subsection. Do not confuse callout leaders with computation arrows or repeated blocks with shared weights.
 
-## FIG-4. Typeface
-All figure text, including tick labels, axis labels, legends, and panel
-labels, uses Times New Roman (or the exact serif family of the manuscript
-body, e.g., Nimbus Roman / STIX as the system provides). One typeface per
-paper, no mixing.
+If the final figure does not exist, deliver a planned mapping/specification and mark final verification pending. When it arrives, inspect actual labels/relations. Planned and checked are different states.
 
-## FIG-5. Font size at print scale
-Text must be clearly legible at the final double-column size. Compute
-source sizes, never guess: source_pt = target_print_pt x (canvas_width /
-print_width). At print scale, every text element is at least 7 pt, with 8-9
-pt (caption size) as the target for labels and legends. Verify by rendering
-the figure at print width and reading the text.
+## FIG3. Data and table semantics
 
-## FIG-6. Legend
-Standard placement, complete (every plotted series named), and NEVER
-occluding data marks, bars, or curves. Move the legend outside the axes or
-into empty data regions; consistency of legend style across figures.
+Axes/headers declare quantities, units, metric direction, and aggregation. Captions/notes explain bold, underline, shading, daggers, missing-result reasons, selection rules, and uncertainty estimator/count. Keep cross-figure colors/names consistent and distinguish key objects in grayscale. Do not imply significance from best-value formatting. Rank counts, statistical outcomes, and missing results are separate.
 
-## FIG-7. Multi-panel labels
-Subfigure labels (a), (b), (c) are placed centered DIRECTLY BELOW the
-corresponding subplot, never in a corner, never above, never to the side.
-Label size follows FIG-5.
+If a compact table shows selected baselines, declare the selection criterion and full-table location; preserve exceptions that alter claims. State quoted/reproduced/adapted baseline provenance honestly. Do not claim identical conditions unless verified.
 
-## FIG-8. Real data only
-Every plotted value comes from a real result file recorded in the fact
-sheet, with provenance (V4 of `verification-protocol.md`). Concept figures
-contain no fabricated numeric data. Plot scripts are saved beside the paper
-(e.g., `paper/figures/scripts/`) so every figure is regenerable, and each
-script saves both the vector PDF and a >=300 dpi raster preview.
+Print leading zeros (0.73, not .73); make highlight colours dark enough to read in greyscale; move unit or marker symbols from the header into the caption; do not keep empty cells — every cell is either a result or an explained absence.
 
-## FIG-9. Page-1 figure (teaser) [VENUE-CONDITIONAL]
-- **Journal profile**: page 1 is usually text-only; Fig. 1 is a page-2
-  pipeline or motivation figure. A single-column motivation figure on page 1
-  is acceptable, not the norm.
-- **Conference profile**: a page-1 teaser is near-mandatory (CVF/AAAI
-  corpus: 10/10 award papers carry one). Choose ONE mode and design for it:
-  1. *Capability input-to-output*: inputs left, outputs right, one arrow
-     chain; caption may carry a speed/scale number.
-  2. *Qualitative wall*: a grid of non-cherry-picked results; state the
-     selection policy in the caption ("random samples, no re-ranking").
-  3. *Failure-mechanism / paradigm contrast*: dissect the incumbent's
-     defect, or ladder (a)(b)(c) paradigms ending in ours.
-  4. *Performance scatter*: the trade-off plot itself as the teaser
-     (accuracy vs cost, ours as a distinct marker).
-  Placement: full width above the abstract, or right column beside it.
-  The teaser caption states the claim (see FIG-12 conference row).
+## FIG4. Resolution and fonts: check actual official scope
 
-## FIG-10. Diagnostic (evidence) figure
-One data figure that justifies a design choice, placed IN THE METHOD
-section next to the choice (corpus pattern: a measured spectrum/histogram
-motivating a hyperparameter; a training-curve strip naming a phenomenon).
-The figure answers "why this design", not "how much better". Every
-diagnostic figure carries real measured data (FIG-8) and its caption states
-the design conclusion drawn from the data. Journal profile: also standard,
-often as a motivation figure in the introduction or an analysis subsection.
+Prefer vector plots/diagrams with editable source. The [IEEE resolution page](https://journals.ieeeauthorcenter.ieee.org/create-your-ieee-journal-article/create-graphics-for-your-article/resolution-and-size/) checked 2026-10-18 specifies >300 dpi for non-vector color/grayscale and >600 dpi for black/white line art. Upsampling cannot restore detail. Follow publication-specific requirements and final physical size.
 
-## FIG-11. Trade-off scatter
-For efficiency claims, an accuracy-vs-cost scatter: cost axis log-scaled
-when spanning decades, our method a distinct marker (star), competitor
-points labeled, optional corner cues ("best" arrows). Efficiency deltas in
-the caption use multiples ("9x faster"), accuracy deltas absolute numbers.
-Journal profile treats the scatter as optional (tables carry efficiency);
-conference profile treats it as a strong default for any compact/efficient
-method paper.
+The [file-formatting guidance](https://journals.ieeeauthorcenter.ieee.org/create-your-ieee-journal-article/create-graphics-for-your-article/file-formatting/) checked the same day recommends several fonts and appropriate embedding/outlines. Times New Roman is a valid project choice, not the only IEEE font. Check legibility at final column width, including subscripts, formulas, and legend text.
 
-## FIG-12. Caption register [VENUE-CONDITIONAL]
-- **Journal profile**: captions short (1-2 sentences): noun-phrase locator,
-  then the reading key. Heavy semantics (color codes, box meanings) live in
-  body prose. Conclusions belong to the running text.
-- **Conference profile**: captions are self-contained mini-abstracts: bold
-  lead (often the method name), reading instructions ((a)/(b) or
-  Left/Right walk), and a CONCLUSION sentence; numbers allowed.
-- Both profiles: the caption declares every convention the float uses
-  (arrows, daggers, shading, error bars with their interval type), and any
-  uncertainty band names its estimator and run count, declared at least at
-  first use ("shaded: +-1 std over 5 seeds").
+## FIG5. A results figure must carry new information
 
-## FIG-13. Table background color (P1-P4) and LaTeX mechanics
-Color paradigms observed in the corpus, ranked for the suite:
-- **P1 own-row pale tint (PREFERRED)**: a light background on the
-  proposed-method row/column only. Color answers exactly one question,
-  "which row is ours"; best/second/significance stay with
-  bold/underline/dagger, so decoloring loses zero information.
-  Grayscale- and colorblind-safe by construction.
-- **P2 best/second colored cell fills (BANNED, journal profile)**: red/blue
-  fills for top entries are grayscale-unsafe and fight the bold/underline
-  channel. Conference profile tolerates full rank heatmaps; they do not
-  transfer to a journal (re)submission.
-- **P3 semantic zone tints**: pale bands separating table regions by
-  meaning (taxonomy groups, summary bands). Acceptable in both profiles
-  when declared in the caption.
-- **P4 group row-bands**: alternating pale bands purely for readability of
-  very wide tables. Acceptable; never encodes ranking.
-Verified LaTeX mechanics (from a real IEEEtran manuscript):
-- `\usepackage[table]{xcolor}` loaded AFTER `array`, BEFORE `hyperref`
-  (option clash otherwise); brings colortbl.
-- Define named colors once, e.g. pale violet `#ECEBF6` for the own row,
-  pale green `#EAF3EA` for a single highlighted winning cell, neutral
-  `#F7F7FA` for summary bands; reuse the same three names across all tables.
-- Precedence `\cellcolor` > `\rowcolor` > `\columncolor`; `\rowcolor` must
-  open the row; column tint via `>{\columncolor{...}}c` (needs `array`);
-  `\multirow` cells do not inherit row tints (tint the column instead, or
-  `\cellcolor` every spanned row).
-- Every colored table's caption carries one neutral sentence declaring the
-  color semantics ("the proposed method's row is shaded"), and the table
-  must survive grayscale printing with no meaning lost (decolor test).
+A figure that redraws table content, illustrates an operation the reader already understands, or shows a deterministic transformation whose outcome is implied by its definition adds nothing. The test: what does the reader know after this figure that the text and tables cannot give? If the answer is "nothing", delete the figure or give the space to another float.
+
+- New evidence may be what a trained model responds to, per-class spatial structure, or an intervention on real inputs.
+- Visualise what is visual: a real image or real flow field with real annotations beats a schematic; a heatmap no one can check against data is decoration.
+- Panels must not contradict each other; check the numbers across panels.
+- One figure, one message. Drop panels that do not serve it, even if they took work.
+- Text must not overlap graphics; labels must be readable at final size; the palette is chosen from published figures, not from defaults; a light panel on a light background has no contrast.
+- Legends are boxed and aligned with the content above them; no decorative marks without function.
+
+## FIG6. Captions
+
+The caption helps a reader interpret the float where it sits. It is not a place for analysis, motivation, or extra results.
+
+- Length: as short as the float allows. A single-panel float may need only a title phrase. A five-line caption is already long in a two-column layout.
+- First sentence: a noun-phrase title of what the figure shows, readable on its own and following the exemplar habit of the target venue.
+- Then only what is needed to read the figure and is not in the text: what each panel compares, what colour or shading means, what the error bars are, what a symbol is if the text defines it later.
+- Do not describe what the reader can see. Do not restate a table. Do not repeat the analysis. Do not introduce a comparison the figure does not support.
+- Multi-panel floats still need one short sentence per panel.
+- Every sentence is a complete sentence; no semicolons; no chains of "namely ... with ... and ...".
+- Terms, metric names, abbreviations and symbols match the text; a term coined in the text appears in the caption only with one clarifying phrase.
+
+## FIG7. Joint page inspection
+
+After structural/float edits, inspect affected rendered pages for citation distance, reading order, orphaned headings, equation/label clipping, table whitespace, and readable final scale. Preserve official template dimensions and font sizes rather than shrinking everything to force a cap. Use the real build; mark page QA unavailable if not run. A successful compile alone does not establish layout quality.
+
+## FIG8. Provenance and metadata
+
+A figure produced by a plotting script is regenerated from the script, not edited in the PDF. Keep the script, the data snapshot and the settings with the source, and note which version the manuscript uses. Figure PDFs carry metadata (producer, author, path) into the paper's PDF: suppress it at build time and scrub the figure files. Never ship a figure whose labels contain internal names, dates or draft markers.
+
+## FIG9. Prompts for external drawing tools
+
+When a figure is produced by an external design tool, the prompt states: the message of the figure, the panels and each panel's message, the data each panel shows, the palette and typography, the alignment requirements, the final physical size, and the output format (editable). Review the returned figure against FIG5–FIG6 before it enters the manuscript, and record what was checked.

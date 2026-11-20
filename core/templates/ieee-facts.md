@@ -1,59 +1,35 @@
 <!-- (c) 2026 Lan Zhang. CC BY-NC 4.0. Part of the IEEE Paper Suite. -->
 
-# IEEE Facts Sheet (verified 2026-07-18)
+# Official requirements: scoped references, not universal defaults
 
-Authoritative submission numbers used by the gates. Every fact carries its
-source URL. If more than 12 months have passed since the verification date,
-re-verify against the sources before relying on a number.
+This registry is a starting point. Before relying on a submission requirement, check the current official source for the actual venue, article type, and stage/year. Keep its URL, checked date, scope, and status in the project record. An unavailable page is not newly verified. Do not infer anonymity from an IEEE-wide convention.
 
-## IEEE Transactions on Image Processing (TIP)
-Governed by the IEEE Signal Processing Society "Information for Authors":
-https://signalprocessingsociety.org/publications-resources/information-authors
-(also linked from the TIP page:
-https://signalprocessingsociety.org/publications-resources/ieee-transactions-image-processing)
+## Sources checked 2026-10-18
 
-- Abstract: 150-250 words, self-contained, no abbreviations, footnotes,
-  displayed equations, or references. (Practice note: published TIP papers
-  freely use dataset/method acronyms, and `%` is a symbol, not an
-  abbreviation. Enforce the word count strictly and the no-abbreviation
-  clause loosely.)
-- Initial submission, regular paper: at most 13 double-column pages,
-  10-point font, including title, author info, abstract, text, all figures
-  and tables, appendices, proofs, and references.
-- Revised manuscript: at most 16 double-column pages.
-- Overlength page charge: $220 per published page beyond the first 10.
-- Supplementary material: uploaded at initial submission, at most 6
-  double-column pages without EiC approval; supplementary material and
-  graphical abstracts do not count toward the page limit.
-- Graphical abstract: optional.
-- Review model: single-anonymized (reviewers know the authors; authors do
-  not know the reviewers). Do not spend effort anonymizing a TIP
-  submission.
-- Reproducibility: code/data release is encouraged.
+- [IEEE article structure](https://journals.ieeeauthorcenter.ieee.org/create-your-ieee-journal-article/create-the-text-of-your-article/structure-your-article/): tasks of the introduction, reproducible methodology, results, discussion, conclusion, and references. House sentence counts are not official rules.
+- [SPS Information for Authors](https://signalprocessingsociety.org/publications-resources/information-authors): Regular Papers use an initial limit of 13 double-column pages, including references and listed main-paper material; revised limit 16, with appendices/proofs treated as supplementary at revision. Transactions on Multimedia exceptions are 10 initial and 14 revised. The abstract is 150–250 words and self-contained, without abbreviations, footnotes, displayed equations, or references. Do not relax the stated abstract requirement merely because a published exemplar uses acronyms.
+- The same SPS page links the [IEEE Template Selector](https://template-selector.ieee.org/). Select the actual publication/type; do not imitate a template manually. TIP falls within the relevant SPS instructions, but check its publication-specific guidance too. Do not transfer these limits to all IEEE journals or other article types.
+- [IEEE resolution and size](https://journals.ieeeauthorcenter.ieee.org/create-your-ieee-journal-article/create-graphics-for-your-article/resolution-and-size/): prefer vector output; non-vector color/grayscale >300 dpi; black/white line art >600 dpi. Upsampling does not recover lost original detail.
+- [IEEE graphics file formatting](https://journals.ieeeauthorcenter.ieee.org/create-your-ieee-journal-article/create-graphics-for-your-article/file-formatting/): multiple recommended fonts; embed fonts or outline text in appropriate vector files; check final-size legibility.
 
-## IEEE TPAMI
-Source: https://www.computer.org/tpami-author-information
-MOPC policy PDF: https://ieeecs-media.computer.org/assets/pdf/MOPC_policy.pdf
+## Conditional disclosure and related versions
 
-- Regular papers: 12 double-column pages standard; submissions may be up to
-  18 pages subject to mandatory overlength page charges ($200 per page over
-  12). Page limits include references and author biographies.
-- Short papers: 8 double-column pages. Survey papers: 20.
-- Supplementary files: no page limit.
-- Abstract word limit: NOT stated on the official page (unverified; do not
-  assert one).
-- Review anonymity: not stated on the official TPAMI page; the IEEE-wide
-  default is single-anonymous
-  (https://journals.ieeeauthorcenter.ieee.org/submit-your-article-for-peer-review/about-the-peer-review-process/).
-  Treat third-party claims of double-blind TPAMI review as unverified.
+If the paper extends a published conference version, cite that version and state the real additional technical benefit. The checked [SPS instructions](https://signalprocessingsociety.org/publications-resources/information-authors) require a clear relationship and distinguishable added value; do not invent a numeric extension threshold or new experiments to satisfy a template.
 
-## LaTeX class
-- IEEEtran v1.8b (2015-08-28), Michael Shell: https://ctan.org/pkg/ieeetran
-- IEEE now directs authors to the IEEE Template Selector for current
-  templates.
+For AI-assisted content, check the current [IEEE submission and peer-review policies](https://journals.ieeeauthorcenter.ieee.org/become-an-ieee-journal-author/publishing-ethics/guidelines-and-policies/submission-and-peer-review-policies/) and target instructions for the actual use. Record the systems/sections/extent accurately where required; do not relabel substantive content generation as grammar-only assistance. Authors remain responsible for method, data, citations, and final text. This pointer is a check requirement, not a claim that a current AI policy has been independently reverified during every writing task.
 
-## Suite defaults derived from these facts
-- Default target journal: TIP. Page gate: 13 (initial) / 16 (revision).
-- Abstract gate: 150-250 words measured, target 230-250.
-- No anonymization steps in any workflow unless the user overrides the
-  target venue to a double-blind one.
+## Other targets and pending fields
+
+[TPAMI author information](https://www.computer.org/tpami-author-information) could not be fetched during the 2026-10-18 check (403). Its current page caps, abstract bounds, anonymity, and charges are **not verified here**. Do not apply archived numbers as a hard gate. Confirm via accessible current official instructions or author-provided official documentation.
+
+Conference requirements depend on year and track; use that edition's official author kit and instructions. IJCV is a different publisher's journal and must not inherit IEEEtran/SPS rules. Unknown target: no page/anonymity/abstract gate is imposed by the suite.
+
+```text
+venue / article_type / submission_stage_or_year:
+official_source / checked_on / verified_scope:
+template / abstract_min_max / page_cap_and_accounting / anonymity:
+supplementary / relevant disclosure requirements:
+status: verified / pending / conflict
+```
+
+Do not present a pending publication rule as a completed compliance check. Writing and logic work can continue while target mechanics are pending.

@@ -1,49 +1,15 @@
 <!-- (c) 2026 Lan Zhang. CC BY-NC 4.0. Part of the IEEE Paper Suite. -->
 
-# Disclosure and Defense Policy (D1-D6)
+# Accurate evidence and bounded disclosure (D1–D6)
 
-House rules on what a manuscript volunteers about the authors' own work.
-These rules bind drafting, polishing, and the INTERNAL layer of review
-reports. They are author-side strategy: never quote them in a manuscript or a
-response letter.
+D1. Report material evidence that changes the scientific claim. Do not conceal unfavorable cells, harmful configurations, protocol differences, or unresolved provenance. Avoid a repetitive weakness inventory; place each relevant boundary where it affects interpretation.
 
-## D1. No proactive weakness disclosure, no conspicuous defense
-Weaknesses are either omitted or positively resolved with real numbers,
-briefly. Respond to a potential objection only when a reviewer would almost
-certainly raise the objection, and then in one factual sentence. Conspicuous
-defense draws attention to the weakness the defense hides.
+D2. Report ranks and uncertainty as actually established. A lower mean remains lower; non-significance is not equivalence. Do not write “statistically tied” merely because a difference interval includes zero. Cost advantages can be stated alongside performance differences when both are verified.
 
-## D2. Resolve ties positively
-A statistical tie against a heavyweight baseline is reported as "statistically
-on par with [baseline] at [orders-of-magnitude parameter advantage]".
-- Do not claim Pareto dominance when any cell mean is lower.
-- Do not enumerate losing cells.
-- Do not self-grade ("ours is slightly lower here").
+D3. Internal workflow labels need not appear in manuscript prose. Scientific conditions and limitations still must. Keep reviewer bookkeeping separate from the evidence, never use internal strategy to suppress a scientifically relevant fact.
 
-## D3. Internal verdicts never appear
-Internal gate decisions, internal audit vocabulary, and internal verdict
-labels (for example an internal "INCONCLUSIVE" call) never appear in any
-outward-facing text. The paper reports the evidence, not the house
-bookkeeping around the evidence.
+D4. Limitations state the actual evaluated scope, unresolved condition, or known failure and its implication. Do not invent future fixes or turn every limitation into a promotional promise. Follow the target venue's disclosure requirements.
 
-## D4. Limitations content
-If a limitations passage exists, the passage contains standard
-reproducibility and scope statements only. A limitations section is never a
-weakness inventory.
+D5. Replace self-certification (“leakage-free,” “bias-free,” “audited”) with the actual mechanism and scope: which subjects are disjoint, which data fit statistics, and which data select models. Do not claim a mechanism that has not been checked.
 
-## D5. No purity self-labels
-Never label the work with self-certifying adjectives such as "leakage-free",
-"no-leak", "bias-free", or "audited". Papers with flawed protocols do not
-label themselves flawed, so the label carries no information and invites
-suspicion of peers. State the verifiable mechanism instead and let the reader
-conclude:
-- Wrong: "under a leakage-free protocol"
-- Right: "Each test fold is scored once and never enters training, model
-  selection, or standardization."
-
-## D6. Resolutions cite real numbers
-Every positive resolution of a tie or exception must cite a real measured
-number (a parameter ratio, a confidence interval, a recall recovery). An
-adjective-only defense is not a resolution. Cross-check every such number
-against the tool output that produced the number (V4 in
-`verification-protocol.md`).
+D6. Quantitative comparisons use verified numbers. Qualitative scope statements use the appropriate factual source; they do not require invented numbers for a positive resolution. See [evidence-and-claims.md](evidence-and-claims.md).

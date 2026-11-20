@@ -28,3 +28,7 @@ __pycache__/
 
 # OS noise
 .DS_Store
+
+# Generated code-discovery artifact and per-manuscript helper baselines
+.codebase-memory/
+.*.ieee_baseline.txt

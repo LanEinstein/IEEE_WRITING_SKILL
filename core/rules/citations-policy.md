@@ -1,46 +1,25 @@
 <!-- (c) 2026 Lan Zhang. CC BY-NC 4.0. Part of the IEEE Paper Suite. -->
 
-# Citations Policy (L1-L5)
+# Citations: existence, metadata, and content (L1–L5)
 
-Literature handling for drafting, polishing, and review. Backed by
-`scripts/verify_citations.py` and `core/literature/venue-tiers.md`.
+## L1. Verify the actual support
 
-## L1. Every citation is verified against a live index
-Before a reference enters the .bib file, verify the tuple
-(title, venue, year, DOI) against Crossref or OpenAlex (primary backends;
-Semantic Scholar and DBLP as fallbacks). Run
-`scripts/verify_citations.py` on the .bib and keep the verification report
-with the manuscript. A citation that cannot be located in any index does not
-exist for the purposes of the manuscript.
+Use primary publisher/proceedings/dataset/software/standard sources where possible. Locate author, title, venue/version, year, and DOI or another valid identifier, then read the relevant content to check the sentence's actual claim. Keep metadata verification separate from content support. No DOI or absent index hit does not establish nonexistence.
 
-## L2. Venue quality gate
-Only top venues by default: the tier list in
-`core/literature/venue-tiers.md` governs. A reference outside the tiers is
-denied by default; an exception requires an explicit user approval with a
-one-line justification (for example a niche venue that is standard in a
-subfield). Record approved exceptions in the verification report.
+`scripts/verify_citations.py <references.bib> [--limit N] [--mailto address]` is an optional Crossref/OpenAlex metadata helper requiring Python and network access. Its fuzzy title/year/venue statuses require human interpretation. It does not read papers, enforce venue tiers, prove a DOI match, or establish scientific support. `NOT_FOUND`, `LOOKUP_ERROR`, `PARTIAL`, and mismatches remain pending until checked against appropriate sources.
 
-## L3. arXiv interception
-For every entry whose venue is arXiv:
-1. Search Crossref/OpenAlex/DBLP for a peer-reviewed published version.
-2. If found, upgrade the entry to the published venue.
-3. If not found, place the entry on an "arXiv-only" list and ask the user to
-   rule case by case. The default is exclusion: arXiv is cited only when
-   necessary (for example a dataset or tool that exists nowhere else).
+## L2. Select by relevance and accurate credit
 
-## L4. Bib hygiene
-- Brace-protect proper nouns in titles (`{ImageNet}`, `{Bayesian}`).
-- One consistent venue naming convention across the file (either full names
-  or one abbreviation standard, never mixed).
-- Required fields present per entry type (journal: author, title, journal,
-  volume, pages, year, DOI; conference: author, title, booktitle, pages,
-  year).
-- After compilation: scan the .blg for warnings and the PDF for `?` marks
-  (unresolved citations), and report counts.
+Find the closest methods by task, difficulty, assumption, and operation; follow references/citing work as needed. Record the mechanism, scope, relation to the current work, supporting passage, and status. Prefer originals for datasets, algorithms, protocols, and tools. An explicit author preference can guide selection but cannot justify inaccurate attribution; [venue-tiers.md](../literature/venue-tiers.md) explains the former tier list's status.
 
-## L5. Never invent a citation
-While drafting, if a claim needs a source that is not yet verified, write the
-placeholder `\textcolor{red}{[CITE: one-line description]}` instead of a
-guessed reference. The final sweep counts these placeholders, and the count
-must reach zero before submission by real verification, never by deletion of
-the claim marker without resolution.
+## L3. Handle versions explicitly
+
+Check for a suitable published version of a preprint, and verify that it supports the same claim. Preprints, technical reports, workshops, standards, datasets, and software are not universally forbidden IEEE sources. Apply the target's current rules and actual source reliability/necessity. Do not invent a publication upgrade or require new permission for every legitimate source by default.
+
+## L4. Bibliographic hygiene
+
+Use stable keys, protect proper-name capitalization, unify venue naming, and check duplicate/missing/unresolved entries. Required fields depend on entry type and publication state: an early-access article may not yet have final pages. Do not fabricate volume/pages/DOI to satisfy a field checklist. Use the target template and [IEEE Reference Guide](https://journals.ieeeauthorcenter.ieee.org/wp-content/uploads/sites/7/IEEE_Reference_Guide.pdf) when relevant.
+
+## L5. Unverified claims stay visible in drafts
+
+Use `[CITE: precise support needed]` in a draft/review note. In TeX, avoid introducing an undefined coloring macro merely for a placeholder; plain bracketed text or an existing project macro is sufficient. Never guess citation keys or metadata. Resolve the support or accurately remove/narrow the dependent claim before submission; deleting only the marker is not resolution. Offline work continues on independently supported content with pending status stated honestly.

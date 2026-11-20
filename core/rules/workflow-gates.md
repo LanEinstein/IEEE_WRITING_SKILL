@@ -1,46 +1,31 @@
 <!-- (c) 2026 Lan Zhang. CC BY-NC 4.0. Part of the IEEE Paper Suite. -->
 
-# Workflow Gates (G16): Propose, Wait for Approval, Then Act
+# Workflow, authorization, and concurrent edits
 
-These are the hard process rules of the suite. They are not style advice: a
-workflow that skips a gate is a broken run, regardless of output quality.
+## W1. Honor the user's actual review scope
 
-## The propose-then-go discipline (applies to ieee-write and ieee-polish)
+A request for a proposal/review before recording text creates a gate at the requested unit. A request to draft/apply/polish a named section authorizes that section. A whole-task authorization is not reduced to repeated paragraph approvals. Sentence plans and topic-first paragraphs control writing quality, not consent granularity.
 
-1. **Never edit a manuscript file directly.** For every proposed change,
-   present a proposal first:
-   - a table of `original -> proposed` for each affected sentence, plus
-   - a one-line rationale per change, naming the rule ID (G/S/D) that
-     motivates the change.
-2. **Wait for an explicit approval token** from the user (`go`, `implement`,
-   or an equivalent unambiguous instruction) before applying anything.
-   Silence, partial comments, or questions are NOT approval. If the user
-   modifies a proposal, re-present the modified version and wait again.
-3. **One paragraph at a time.** Draft or polish exactly one paragraph per
-   proposal cycle. Never batch several paragraphs into one approval, and
-   never continue to the next paragraph before the current one is approved.
+If no presentation size is specified, deliver by subsection (whole section if unpartitioned), with a complete artifact at the end. Ask only when a material ambiguity cannot be resolved from existing context. Do not infer a mandatory outline gate or polishing gate from old versions of this suite.
 
-## Mandatory gates by workflow
+## W2. Present concrete work at a real gate
 
-| Gate | Where | Condition to pass |
-|---|---|---|
-| Outline approval | ieee-write, after the outline | The user explicitly states the outline review has passed. Iterate on feedback until that statement is given. |
-| Per-paragraph go | ieee-write drafting, ieee-polish editing | Explicit `go` for the current paragraph. |
-| Polish consent | ieee-polish entry (when suggested after writing) | The user accepts the polish offer. |
-| Big-action page | any workflow | Before any long compilation batch, any external upload, or any action outside the paper directory, state the intent and wait for consent. |
+Where approval is requested, provide the actual proposed text and the material meaning/metric/scope changes, not merely a plan. Use a sentence comparison table when useful or requested; do not force one for an untouched sentence. Wait for explicit approval of the pending unit. Once approved, apply the approved content and continue within the remaining authorization.
 
-## Editor-buffer overwrite guard
+## W3. Stay within the writing assignment
 
-After applying an approved edit, re-read the modified region and confirm the
-new text is present. If a later read shows the old text again, an IDE buffer
-has overwritten the change from a stale copy. Stop immediately, list the
-affected edits by content comparison (line numbers drift and cannot be
-trusted), and ask the user to reload the file in the editor before re-applying.
+Writing does not authorize new experiments, altered numerical results, submission, publication, messages to other people, or unapproved external disclosure. Reversible local reads, drafting, backups, and relevant verification within the authorized task do not need fresh permission merely because they are long or outside the manuscript directory. External collaboration follows [collaborative-review.md](collaborative-review.md).
 
-## Reporting discipline
+## W4. One active manuscript and safe application
 
-- Report outcomes faithfully: if a compilation fails or a check finds
-  violations, report the real output. Never describe a skipped step as done.
-- The numbers iron rule of `core/rules/verification-protocol.md` (V4) applies
-  to every gate report: no number appears in a deliverable before the tool
-  output that produced the number has been observed.
+Read the active region immediately before changing it. Preserve technical meaning, comparison, metric, values, and claim scope unless the user has authorized a specific substantive change. Apply the smallest useful change; reread it in context.
+
+If the file changed concurrently, compare the actual content and merge nonconflicting edits. Do not overwrite newer user text. When a conflict cannot be resolved safely, show the conflicting passages and ask a focused question; keep unaffected work moving. A stale-buffer overwrite is evidence of a conflict, not a reason to reapply blindly.
+
+## W5. Review is read-only with respect to source artifacts
+
+`ieee-review` and `ieee-style` produce reports, not source edits. They may write requested reports to the agreed output directory. Run builds in an isolated copy; never create a new `.aux`, `.log`, PDF, or baseline next to a reviewed original. Other workflows use the existing project build convention and preserve unrelated outputs.
+
+## W6. Report real state
+
+Distinguish proposed, approved, applied, verified, pending, and superseded. A skipped or unavailable check is not a pass. A partial draft with evidence gaps is a reviewable draft, not submission-ready. Preserve previous user decisions across turns.

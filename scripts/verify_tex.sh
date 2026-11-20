@@ -18,7 +18,7 @@ fi
 TEXFILE=$(readlink -f "$1")
 TEXDIR=$(dirname "$TEXFILE")
 BASE=$(basename "$TEXFILE" .tex)
-BASELINE="$TEXDIR/.ieee_baseline.txt"
+BASELINE="$TEXDIR/.$BASE.ieee_baseline.txt"
 SETBASE="${2:-}"
 
 command -v pdflatex >/dev/null 2>&1 || { echo "ERROR: pdflatex not found" >&2; exit 2; }
@@ -46,6 +46,12 @@ FINAL_STATUS=$?
 
 if [ ! -f "$LOG" ]; then
   echo "ERROR: no log file produced" >&2
+  exit 1
+fi
+
+if [ "$FINAL_STATUS" -ne 0 ]; then
+  echo "RESULT: COMPILE FAILED (final pdflatex exit $FINAL_STATUS); no page/compliance verdict or baseline written"
+  grep -n '^!' "$LOG" | head -10 || true
   exit 1
 fi
 

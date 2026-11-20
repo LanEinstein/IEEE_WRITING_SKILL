@@ -3,9 +3,7 @@
 # Pre-release leak scan. Confirms the shipped tree contains:
 #   1. none of the maintainer's private patterns (unpublished manuscript
 #      identifiers, machine paths) listed in local/leak-patterns.txt;
-#   2. no CJK characters in runtime files (README.zh-CN.md is the sole
-#      documentation exception);
-#   3. no absolute /home/ paths.
+#   2. no absolute /home/ paths. Multilingual documentation is permitted.
 # A missing patterns file or a failed grep makes the run INCOMPLETE, never
 # CLEAN. Usage: leak_scan.sh [repo-root]   (default: parent of this script)
 set -u
@@ -20,9 +18,9 @@ FAIL=0
 INCOMPLETE=0
 
 # Shipped tree = everything except .git, local/, per-run outputs, the
-# scanner itself, and the Chinese README (documentation-only exception).
-GREPX=(--exclude-dir=.git --exclude-dir=local --exclude-dir=paper
-       --exclude=leak_scan.sh --exclude=README.zh-CN.md -r -n)
+# scanner itself. All shipped documentation is checked for private patterns.
+GREPX=(--exclude-dir=.git --exclude-dir=.codebase-memory --exclude-dir=local --exclude-dir=paper
+       --exclude=leak_scan.sh -r -n)
 
 # Optional: local/scan-excludes.txt lists non-shipped filenames (one per
 # line) to exclude, e.g. machine-only development documents.
@@ -66,10 +64,7 @@ else
   INCOMPLETE=1
 fi
 
-# READMEs are human-reviewed documentation, never loaded at runtime, and the
-# English README legitimately shows the Chinese language-switcher label; both
-# stay in the private-pattern and absolute-path scans above.
-scan "CJK-in-runtime-files" --exclude=README.md -P '[\p{Han}\p{Hiragana}\p{Katakana}\p{Hangul}]'
+# Multilingual documentation remains in both privacy scans.
 scan "absolute-home-paths" -F -- '/home/'
 
 if [ "$INCOMPLETE" -ne 0 ]; then

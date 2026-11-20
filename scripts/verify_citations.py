@@ -4,14 +4,15 @@
 
 Backends: Crossref (primary), OpenAlex (fallback). Both work without an API
 key. For each entry the script reports one of:
-  VERIFIED      title, year, and venue all consistent with the index
+  VERIFIED      heuristic title/year match with no detected venue mismatch
   CHECK_VENUE   title+year match, but the bib venue reads differently
   PARTIAL       title matched, a year was unavailable on one side
   MISMATCH      title matched, years differ
   ARXIV_ONLY    the bib entry itself cites arXiv with no published venue
   NOT_FOUND     no index locates the title (searches completed)
   LOOKUP_ERROR  no backend completed a search; absence NOT established
-Nothing is ever guessed (L1). The bib parser handles braced and
+Index matches are candidates, not content-support or DOI verification.
+The bib parser handles braced and
 parenthesized entries, @comment/@string/@preamble blocks, nested braces,
 quoted values, and # concatenation; malformed input is reported, never
 silently skipped.
@@ -280,6 +281,8 @@ def classify(fields, cand):
                             cand["venue"])
     if similar is False:
         return "CHECK_VENUE"
+    if similar is None:
+        return "PARTIAL"
     return "VERIFIED"
 
 
@@ -349,13 +352,12 @@ def main():
     print("== Summary ==")
     for status in sorted(counts):
         print(f"{status}: {counts[status]}")
-    print("Policy: NOT_FOUND entries do not exist for manuscript purposes "
-          "(L1). ARXIV_ONLY entries need a published-version search or a "
-          "user ruling (L3). MISMATCH entries need a year fix, and "
-          "CHECK_VENUE entries need a venue-name check (L4). PARTIAL means "
-          "a year was unavailable on one side; confirm manually. "
-          "LOOKUP_ERROR means no backend completed the search; re-run "
-          "before drawing any conclusion.")
+    print("Policy: metadata matches are heuristic; content support and the bib DOI "
+          "still require primary-source checks. NOT_FOUND and LOOKUP_ERROR are "
+          "unresolved verification, not proof of nonexistence. ARXIV_ONLY needs "
+          "an appropriate version check, not automatic exclusion. MISMATCH and "
+          "CHECK_VENUE need manual source comparison; PARTIAL means a year or "
+          "venue could not be compared. No venue-tier policy is enforced here.")
 
 
 if __name__ == "__main__":

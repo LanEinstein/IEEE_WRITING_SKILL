@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # (c) 2026 Lan Zhang. CC BY-NC 4.0. Part of the IEEE Paper Suite.
-# Zero-tolerance prose sweep for a .tex manuscript. Counts and locates
-# violations of the sweepable global rules (see core/rules/prose-rules.md).
+# Diagnostic prose sweep for a .tex manuscript. Counts candidate patterns;
+# context and active preferences determine whether a hit is a defect.
 # Counts are OCCURRENCES (grep -o), not matching lines. A grep error marks
 # the run INVALID instead of printing a false zero.
 # Single-token rules run line-by-line (exact line numbers). Multiword rules
@@ -61,20 +61,20 @@ report() {
 echo "== Prose sweep: $SRC =="
 
 # Line-based single-token rules (exact line numbers).
-report "G1 banned-pronouns (this/these/it/its/they/their/them; self-reference 'this paper/work' exempt on human review)" \
+report "G1 pronoun-candidates (context and active author preference decide)" \
   '\b(this|these|it|its|they|their|them)\b' '-inE' "$TMP"
-report "G10 semicolons" ';' '-n' "$TMP"
-report "G11 em-dashes" '---|\x{2014}' '-nP' "$TMP"
+report "G10 semicolon-candidates" ';' '-n' "$TMP"
+report "G11 em-dash-candidates" '---|\x{2014}' '-nP' "$TMP"
 report "CHECK significance-language (manual: primary metric + stated test only)" \
   '\bsignificant(ly)?\b' '-inE' "$TMP"
-report "L5 CITE-placeholders" 'CITE:' '-n' "$TMP"
+report "L5 unresolved-draft-markers" 'CITE:|EVIDENCE:|MECHANISM:|\bTBD\b' '-nE' "$TMP"
 
 # Paragraph-based multiword rules (immune to source-line wrapping).
-report "G2 connective-without-comma" \
+report "G2 connective-punctuation-candidates" \
   '(^[0-9]+\| |\.\s+)(However|Therefore|Moreover|Furthermore|Finally|In addition)(?!,)' '-nP' "$TMPPARA"
-report "G9 repeated-lead-clauses (how X and how Y / that A and that B)" \
+report "G9 repeated-lead-clause-candidates (how X and how Y / that A and that B)" \
   '\b(how|that|whether)\b[^.!?;]*\band \1\b' '-inP' "$TMPPARA"
-report "BANNED puffery/purity" \
+report "CHECK promotional-or-scope-language" \
   'fully proves|fully demonstrates|excellent|strong overall|leakage-free|leakage free|no-leak|leak-free|bias-free|Pareto-dominan' '-inE' "$TMPPARA"
 report "G14 and-dense-paragraphs (3+ ' and ' in one paragraph; judgment call)" \
   '( and .* and .* and )' '-nE' "$TMPPARA"
@@ -83,5 +83,5 @@ if [ "$ERRORS" -ne 0 ]; then
   echo "== SWEEP INVALID: at least one scan errored; fix before trusting any count. =="
   exit 2
 fi
-echo "== Sweep complete. Zero-tolerance rules: G1 G2 G9 G10 G11 BANNED L5. =="
+echo "== Sweep complete. Raw candidates are not semantic violations or IEEE compliance verdicts. =="
 echo "== Confirm flagged edge cases by reading context; then report counts verbatim. =="

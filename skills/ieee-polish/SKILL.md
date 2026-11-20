@@ -1,74 +1,18 @@
 ---
 name: ieee-polish
-description: Paragraph-by-paragraph polishing of a top-journal or top-conference manuscript to idiomatic academic English under hard house rules and the target venue's style profile, with per-paragraph user approval. Use when the user asks to polish, line-edit, or improve the English of a .tex manuscript (written by this suite or not), or invokes /ieee-polish. Proposes original-to-new edits per paragraph and applies nothing without an explicit go.
+description: Polish an academic manuscript or selected passage while preserving method meaning, numerical results, comparisons, and claim scope. Use for English editing, paragraph revision, or prose improvement; follows the user’s requested review and application scope.
 license: CC BY-NC 4.0, (c) 2026 Lan Zhang
 ---
 
-# ieee-polish: Gated Line-Edit Pass
+# ieee-polish: precise prose, preserved science
 
-You are running the polishing workflow of the IEEE Paper Suite. The workflow
-edits NOTHING without an explicit per-paragraph approval.
+Resolve `<suite>` by following this entry directory's symlink to its real path; the suite root contains `core/` two levels above. Read [core/WORKFLOW.md](../../core/WORKFLOW.md) once, then only the resources needed below. Read the relevant section rule file in full before drafting/reviewing that section; do not replace its sentence tables with a remembered summary. Current session authorization and project agreements govern editing; presentation size never creates permission. Scientific accuracy and current official requirements constrain every house preference.
 
-## Stage 0: Locate and set up
-1. Resolve the suite root: run `readlink -f` on this skill's directory; the
-   suite root is two levels up from the resolved path.
-2. Identify the target .tex with the user, and the scope (whole manuscript
-   or named sections).
-3. Confirm the **submission target** (journal or conference, plus the
-   specific venue). If unstated, ask once; if still undecided, use
-   journal-TPAMI/TIP as the safe default and state the assumed profile.
-   Read `<suite>/core/literature/venue-style-profiles.md` IN FULL and load
-   the matching profile: the line edit is calibrated to that venue's
-   register (question usage, caption style, claim strength, limitations
-   handling, emphasis budget). House rules still win over profile rows.
-4. Read IN FULL: `<suite>/core/rules/workflow-gates.md`,
-   `<suite>/core/rules/prose-rules.md`,
-   `<suite>/core/rules/disclosure-policy.md`, and
-   `<suite>/core/rules/verification-protocol.md`.
+The shared rule set under `core/rules/` is binding for the requested unit: [paragraph-architecture.md](../../core/rules/paragraph-architecture.md), [sentence-craft.md](../../core/rules/sentence-craft.md), [lexicon.md](../../core/rules/lexicon.md), [translation-discipline.md](../../core/rules/translation-discipline.md), [voice-and-positioning.md](../../core/rules/voice-and-positioning.md), [terminology-and-notation.md](../../core/rules/terminology-and-notation.md), [figure-standards.md](../../core/rules/figure-standards.md) and, where the text is revised, [revising.md](../../core/rules/revising.md) and [review-loops.md](../../core/rules/review-loops.md). [QUICK_REFERENCE.md](../../QUICK_REFERENCE.md) is the one-page digest. Each section blueprint ends with a hardened checklist `S-*-H`. For English prose, run `scripts/prose_lint.py` (H must be zero) and then `scripts/pronoun_check.py`; both are diagnostics, not proof.
 
-## Stage 1: Baseline
-1. Run `<suite>/scripts/verify_tex.sh <main.tex>` once to store the
-   compilation baseline (pages, warnings, Overfull signatures). Later runs
-   attribute every box to NEW or LEGACY; never report a legacy artifact as a
-   new regression.
-2. Read the whole manuscript once. Build a section map and a terminology
-   list (established phrases, module names, metric names). During polishing,
-   conform to established terms; grep the manuscript before proposing any
-   rename, and check figures with
-   `<suite>/scripts/check_figures_text.sh <figdir> <term>` before renaming a
-   term that might appear inside a figure.
-
-## Stage 2: Polish loop (one paragraph per cycle, hard gate)
-Work top to bottom. For each paragraph:
-1. Read the section rules file for the current section
-   (`section-abstract.md` / `section-introduction.md` /
-   `section-related-work.md` / `section-methodology.md` /
-   `section-experiments.md` / `section-conclusion.md`) if not already read
-   in this session.
-2. Analyze sentence by sentence against the global rules (G1-G15), the
-   section rules, and the disclosure policy. Consult
-   `<suite>/core/templates/applied-examples.md` for the proposal format.
-3. Present a proposal table: one row per changed sentence,
-   `original -> proposed`, with the motivating rule ID per row. Propose
-   only; do not edit.
-4. **GATE:** wait for the user's explicit `go` (or amended instructions,
-   then re-propose). Apply the approved edits exactly.
-5. After applying, re-read the edited region and confirm the new text is in
-   place (editor-buffer guard in `workflow-gates.md`). If old text
-   reappears, stop and follow the guard procedure.
-6. For the abstract, run `<suite>/scripts/wordcount_abstract.sh` after every
-   applied change and report the measured count.
-
-Compile checkpoints: at each section boundary (and after any structural
-edit) run `<suite>/scripts/verify_tex.sh` and report
-pages/warnings/undefined/Overfull with NEW/LEGACY attribution, verbatim.
-
-## Stage 3: Final sweep
-After the last approved paragraph:
-1. Run `<suite>/scripts/sweep_prose.sh <main.tex>` and report every count
-   with locations. Zero-tolerance rules must show zero; walk any residue
-   back into the loop.
-2. Run a final `<suite>/scripts/verify_tex.sh` and report the full
-   compilation summary against the baseline.
-3. Deliver a change log: paragraphs touched, rules most frequently applied,
-   and any user-declined proposals (recorded, not re-argued).
+1. Locate the requested text and its immediate context. Read [workflow-gates.md](../../core/rules/workflow-gates.md), [prose-rules.md](../../core/rules/prose-rules.md), and only the relevant [section blueprint](../../core/templates/sentence-plan.md). A whole-section/whole-paper edit authorization allows completion at that scope; a proposal request means show concrete wording before applying. Do not turn either into repeated `go` requests.
+2. Preserve object, operation, comparator, metric, direction, quantifier, conditions, and evidence strength. Read source tables/definitions for any substantive interpretation. Flag unresolved conflicts locally; do not alter results during polishing. Broader scientific restructuring requires scope-aware explanation, not a silent language change.
+3. Restore the active blueprint: abstract A1–A9; introduction sentence functions; compact Related Work second paragraph; method title/figure/symbol continuity; topic-first experimental paragraphs with operational explanation. Reorganize to improve content, not merely to satisfy a word sweep. If the user restricts work to grammar, preserve the structure and report structural advice separately.
+4. Keep established technical names. Before an authorized rename, check prose, equations, tables, captions, and accessible figure/source labels; mark uninspectable figures pending. Do not rename a canonical object for lexical variety. Pure wording preferences cannot strengthen a claim.
+5. Give clean revised prose plus a short explanation of material changes. Use `original → proposed → reason` tables only when requested or helpful. Do not manufacture a runtime/performance number as a stylistic repair. Read [verification-protocol.md](../../core/rules/verification-protocol.md) for applicable checks: an abstract-only edit needs measured words and meaning checks, not a mandatory whole-paper build.
+6. Apply within existing authorization, reread the region and surrounding paragraph, and verify the actual changed artifact. Report which checks ran and any essential pending evidence. [applied-examples.md](../../core/templates/applied-examples.md) provides focused worked examples.

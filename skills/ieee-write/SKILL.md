@@ -1,122 +1,42 @@
 ---
 name: ieee-write
-description: Write a top-journal or top-conference paper from a codebase, outline-first with hard user gates and venue-targeted style (journal -> TPAMI/TIP profile; conference -> CVPR/ICCV/NeurIPS/ICML/ICLR/AAAI profile). Use when the user asks to write, start, or draft a paper from their project for a top venue, or invokes /ieee-write. Scans the project, produces an outline for approval, then drafts paragraph by paragraph (Method, Experiments, Related Work, Introduction, Abstract, Conclusion) with per-paragraph user approval.
+description: Draft an IEEE journal manuscript or a requested section from research materials, with sentence-level blueprints, evidence-linked claims, and mechanism-focused analysis. Use for starting a paper, drafting sections, or restructuring an argument; adapt other venues to their actual requirements.
 license: CC BY-NC 4.0, (c) 2026 Lan Zhang
 ---
 
-# ieee-write: Codebase to Top-Venue Manuscript
+# ieee-write: research materials to a reviewable manuscript
 
-You are running the writing workflow of the IEEE Paper Suite. The suite is
-venue-target driven: the target venue's profile decides structure, figures,
-tables, and register. Follow the stages below IN ORDER. Every stage names the
-core files to read: read each named file IN FULL before acting on that stage.
-Never rely on a remembered summary of a rules file.
+Resolve `<suite>` by following this entry directory's symlink to its real path; the suite root contains `core/` two levels above. Read [core/WORKFLOW.md](../../core/WORKFLOW.md) once, then only the resources needed below. Read the relevant section rule file in full before drafting/reviewing that section; do not replace its sentence tables with a remembered summary. Current session authorization and project agreements govern editing; presentation size never creates permission. Scientific accuracy and current official requirements constrain every house preference.
 
-## Stage 0: Locate the suite, the project, and the target venue
-1. Resolve the suite root: run `readlink -f` on this skill's directory; the
-   suite root is two levels up from the resolved path (the directory
-   containing `core/` and `scripts/`).
-2. Confirm with the user: the paper project root (default: current
-   directory), the output directory (default: `<project>/paper/`), and the
-   **submission target**: journal or conference, plus the specific venue.
-   If the user has not stated a target, ask once; if still undecided, use
-   journal-TPAMI/TIP as the safe default and state the assumed profile in
-   every deliverable.
-3. Read `<suite>/core/literature/venue-style-profiles.md` IN FULL and load
-   the profile matching the target (Profile J or Profile C plus the venue's
-   mechanics row). The profile governs page caps, abstract mode, teaser and
-   caption conventions, table color ceiling, claim register, limitations
-   handling, and anonymization. House rules in `core/rules/` always win over
-   profile rows.
-4. If `<suite>/local/config.md` exists, read the config for a golden-sample
-   path and other local pointers. Never copy content from an unpublished
-   golden sample into any deliverable.
-5. Read `<suite>/core/rules/workflow-gates.md` and
-   `<suite>/core/templates/ieee-facts.md` now. The gates in the former bind
-   the whole run; the latter holds the journal-side authoritative numbers.
+The shared rule set under `core/rules/` is binding for the requested unit: [paragraph-architecture.md](../../core/rules/paragraph-architecture.md), [sentence-craft.md](../../core/rules/sentence-craft.md), [lexicon.md](../../core/rules/lexicon.md), [translation-discipline.md](../../core/rules/translation-discipline.md), [voice-and-positioning.md](../../core/rules/voice-and-positioning.md), [terminology-and-notation.md](../../core/rules/terminology-and-notation.md), [figure-standards.md](../../core/rules/figure-standards.md) and, where the text is revised, [revising.md](../../core/rules/revising.md) and [review-loops.md](../../core/rules/review-loops.md). [QUICK_REFERENCE.md](../../QUICK_REFERENCE.md) is the one-page digest. Each section blueprint ends with a hardened checklist `S-*-H`. For English prose, run `scripts/prose_lint.py` (H must be zero) and then `scripts/pronoun_check.py`; both are diagnostics, not proof.
 
-## Stage 1: Scan the project into a fact sheet
-Survey the project exhaustively: code, configs, results files, logs, data
-manifests, README/plan documents. Produce `paper/FACT_SHEET.md` recording:
-the method as implemented (modules, losses, inputs), every experimental
-setting, and every result number WITH the file path each number came from.
-Rules: numbers come only from real files or command output; anything not yet
-measurable is written as `TBD`, never invented (V4 of
-`core/rules/verification-protocol.md`).
+## 1. Start at the requested unit
 
-## Stage 2: Outline (hard gate)
-First, unless the user has already stated a preference, ask ONE setup
-question: use an existing prepared .tex template (ask for the path), or
-bootstrap the manuscript skeleton from scratch? Skip the question entirely
-when the user has already made the choice explicit. When bootstrapping,
-build the skeleton from the TARGET VENUE's template per the profile's
-mechanics table (journal: IEEEtran per `core/templates/ieee-facts.md`;
-conference: the venue's official kit, e.g. cvpr.sty / neurips_<year>.sty /
-icml<year> / iclr<year> / aaai<yy>.sty, with the venue's anonymization
-mode). Never hand-roll a lookalike preamble; if the kit is missing locally,
-ask the user for the kit path or approval to fetch it.
+Identify the active manuscript, available materials, and requested output from existing context. For a new full paper, read [evidence-and-claims.md](../../core/rules/evidence-and-claims.md), [storyline-and-contributions.md](../../core/rules/storyline-and-contributions.md), and [outline-template.md](../../core/templates/outline-template.md). Build a compact facts/story/paragraph plan, reusing project records. One [writing workspace](../../core/templates/writing-workspace.md) is enough; no mandatory suite of setup files.
 
-Read `<suite>/core/templates/outline-template.md` and
-`<suite>/core/templates/exemplar-patterns.md`. Produce `paper/OUTLINE.md`
-per the template: title candidates, per-paragraph plan for every section,
-floats plan, main-figure drawing suggestions (the USER draws all figures and
-places the files at the agreed paths; you only specify content and
-constraints), literature plan, open items.
+If the user asked only for an abstract or a section, skip full-paper intake and outline creation. Deliver that unit from its actual sources. If only ideas exist, label proposed content, deliver a bounded outline and evidence gaps, and never invent completed results or design/run new experiments by default.
 
-**GATE:** present the outline and iterate on feedback. Only an explicit user
-statement that the outline review has passed unlocks Stage 3. Record the
-approval in `paper/OUTLINE.md`.
+Read [workflow-gates.md](../../core/rules/workflow-gates.md). Respect a requested outline/proposal gate. Otherwise a request for a draft authorizes a reviewable draft; do not add paragraph-by-paragraph approval. State consequential assumptions once and make substantive progress in the first delivery.
 
-## Stage 3: Draft paragraph by paragraph (hard gate per paragraph)
-Fixed drafting order: **Method, then Experiments, then Related Work, then
-Introduction, then Abstract, then Conclusion.**
+## 2. Load the actual blueprint and write
 
-Before each section, read `<suite>/core/rules/prose-rules.md`,
-`<suite>/core/rules/disclosure-policy.md`, the section's rules file
-(`section-methodology.md`, `section-experiments.md`,
-`section-related-work.md`, `section-introduction.md`,
-`section-abstract.md`, `section-conclusion.md`), and consult
-`<suite>/core/templates/exemplar-patterns.md` and
-`<suite>/core/templates/applied-examples.md` for phrasing.
+Read [prose-rules.md](../../core/rules/prose-rules.md) and the file for the requested section:
 
-Grounding rules for the two evidence-bearing chapters:
-- **Method chapter = the code base's truth.** Every mechanism described must
-  match what the scanned code actually implements, as recorded in
-  `paper/FACT_SHEET.md`. Never describe an idealized design the code does
-  not contain; if design and code diverge, surface the divergence to the
-  user instead of papering over the divergence.
-- **Experiments chapter = real data only.** Every number comes from a fact
-  sheet entry with file provenance; anything unmeasured stays `TBD` and the
-  paragraph waits. When a paragraph needs a plot, generate the figure per
-  `<suite>/core/rules/figure-standards.md` (300 dpi minimum, no in-figure
-  titles, scientific palette, Times New Roman, print-legible sizes,
-  unoccluded legends, (a)/(b) labels centered below each subplot) from real
-  result files, and show the rendered figure to the user with the
-  paragraph.
+| Unit | Required reference | Observable output |
+| --- | --- | --- |
+| Abstract/title | [section-abstract.md](../../core/rules/section-abstract.md) | A1–A9 actual content → one clean paragraph + measured words |
+| Introduction | [section-introduction.md](../../core/rules/section-introduction.md) | P1–P8 sentence tasks → continuous motivation → matched contributions |
+| Related Work | [section-related-work.md](../../core/rules/section-related-work.md) | Problem-oriented themes; each second paragraph 2–3 sentences, target 35–65 words, max 80 and no longer than first |
+| Method | [section-methodology.md](../../core/rules/section-methodology.md) | Heading/figure mapping; inputs, symbols, equations, output consumers; training/inference distinction |
+| Experiments | [section-experiments.md](../../core/rules/section-experiments.md) | Every paragraph topic-first; results E1–E6 with actual operational reasons and local boundaries |
+| Conclusion | [section-conclusion.md](../../core/rules/section-conclusion.md) | C1–C6 supported thesis and scope, not an abstract replay |
 
-Per paragraph:
-1. Draft the paragraph per the outline's plan for that paragraph.
-2. Self-check sentence by sentence against the global rules and the section
-   rules; state which checks were applied.
-3. Present the paragraph to the user with a one-line note of any rule
-   tensions.
-4. **GATE:** wait for an explicit `go` before writing the paragraph into the
-   .tex and before starting the next paragraph. One paragraph per cycle,
-   no exceptions.
+The profile is `journal_method_structured_v2`, a house writing convention. Preserve function mapping if real method structure or an official constraint requires adjacent merges. Never fill missing slots with invented mechanisms, claims, citations, or experiments.
 
-Citations: before citing, verify per `<suite>/core/rules/citations-policy.md`
-(run `<suite>/scripts/verify_citations.py`; tiers in
-`<suite>/core/literature/venue-tiers.md`). Unverified needs get the red
-`[CITE: description]` placeholder, never an invented reference.
+For figures load [figure-standards.md](../../core/rules/figure-standards.md); for new/changed external claims load [citations-policy.md](../../core/rules/citations-policy.md). Read the actual table/protocol/method definition before interpreting it. A current code tree is not automatically the source behind historical results. Do not copy private exemplars; [exemplar-patterns.md](../../core/templates/exemplar-patterns.md) explains functional borrowing.
 
-## Stage 4: Section verification
-At each section boundary run `<suite>/scripts/verify_tex.sh` on the
-manuscript and report pages/warnings/undefined/Overfull verbatim. For the
-abstract, run `<suite>/scripts/wordcount_abstract.sh` on every version and
-report the measured count.
+## 3. Verify and deliver
 
-## Stage 5: Handoff
-When all sections are approved: run `<suite>/scripts/sweep_prose.sh`, report
-counts, list open items ([CITE:] placeholders, TBD numbers, figures the user
-still owes), and **proactively offer a full polishing pass** (the ieee-polish
-workflow). Do not start polishing without the user's acceptance.
+Use [verification-protocol.md](../../core/rules/verification-protocol.md) for checks appropriate to the change, the real engine, and available tools. Unknown venue/tool gaps remain explicit; useful prose continues. Do not mark an unrun check as passed.
+
+Deliver clean requested text, compact evidence/meaning notes, and only material unresolved items. For direct authorized edits, apply and reread the requested unit; for proposal-only work, leave the manuscript unchanged. Keep sentence plans in review notes unless requested in the response. Finish the full authorized scope, not just the first paragraph.

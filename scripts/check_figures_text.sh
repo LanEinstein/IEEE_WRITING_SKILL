@@ -27,6 +27,11 @@ while IFS= read -r pdf; do
     EXTRACT_FAIL=1
     continue
   fi
+  if [ -z "$(printf '%s' "$TEXT" | tr -d '[:space:]')" ]; then
+    echo "[$(basename "$pdf")] NO EXTRACTABLE TEXT (inspect rendered/source labels)"
+    EXTRACT_FAIL=1
+    continue
+  fi
   if [ -n "$TERM" ]; then
     HITS=$(printf '%s\n' "$TEXT" | grep -inF -- "$TERM")
     COUNT=$(printf '%s' "$HITS" | grep -c .)
@@ -37,20 +42,20 @@ while IFS= read -r pdf; do
     echo "===== $(basename "$pdf") (first 40 nonblank lines, preview) ====="
     printf '%s\n' "$TEXT" | grep -vE '^\s*$' | head -40
   fi
-done < <(find "$DIR" -maxdepth 1 -type f -iname '*.pdf' | sort)
+done < <(find "$DIR" -type f -iname '*.pdf' | sort)
 
 if [ "$PDF_COUNT" -eq 0 ]; then
   echo "RESULT: INCONCLUSIVE (no PDF files found in $DIR)"
   exit 2
 fi
 if [ "$EXTRACT_FAIL" -ne 0 ]; then
-  echo "RESULT: INCONCLUSIVE (at least one PDF failed text extraction; check manually)"
+  echo "RESULT: INCONCLUSIVE (at least one PDF failed extraction or has no text layer; inspect manually)"
   exit 2
 fi
 if [ -n "$TERM" ]; then
   if [ "$FOUND_ANY" -eq 1 ]; then
     echo "RESULT: term appears inside figures; renaming the term in prose alone would ship a text-figure mismatch."
   else
-    echo "RESULT: term not found in any of the $PDF_COUNT figure PDFs; prose rename is figure-safe."
+    echo "RESULT: term not found in any of the $PDF_COUNT figure PDFs; check outlined/raster labels visually before declaring a rename complete."
   fi
 fi

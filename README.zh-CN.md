@@ -1,93 +1,91 @@
-<div align="center">
-
 # IEEE Paper Suite
 
-**以按投稿目标定向、硬门控、单一真相源的工作流<br>完成顶刊顶会论文的写作、润色、模拟审稿与风格审查。**
+从空白文稿或指定段落开始，写作、润色与审查一篇有可核查论证的 IEEE 期刊论文或顶会论文（CVPR/ICCV、NeurIPS、ICML、ICLR、AAAI）。本套规则是模型无关的 Markdown：每条规则写清它约束什么、由哪个文件负责、用什么检查让它可见。
 
-<br>
+[English](README.md) · [许可证](LICENSE)
 
-[![English](https://img.shields.io/badge/English-README-2ea44f?style=for-the-badge)](README.md)
-[![Chinese](https://img.shields.io/badge/%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87-%E8%AF%B4%E6%98%8E%E6%96%87%E6%A1%A3-1f6feb?style=for-the-badge)](README.zh-CN.md)
+## 选一个入口，直接说任务
 
-[![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey.svg)](LICENSE)
-[![Claude Code](https://img.shields.io/badge/Claude%20Code-ready-d97757.svg)](#安装使用)
-[![Codex CLI](https://img.shields.io/badge/Codex%20CLI-ready-412991.svg)](#安装使用)
-[![Model Agnostic](https://img.shields.io/badge/core-model--agnostic-8a2be2.svg)](adapters/generic/QUICKSTART.md)
+| 入口 | 任务 | 写入方式 |
+| --- | --- | --- |
+| `ieee-write` | 从零起草、指定节写作、主线重构 | 完成已授权的初稿；明确要求先审查时先提案 |
+| `ieee-polish` | 学术英文、段落结构、一轮修改润色 | 按已有授权应用；仅提案请求不落正文 |
+| `ieee-review` | 方法、协议、证据与主张的模拟审稿 | 正文、参考文献、图与原构建产物只读，产出报告 |
+| `ieee-style` | 结构、句位、术语、图表与投稿格式检查 | 同样只读，按请求范围检查 |
 
-</div>
+不再强制每段等一次 go。审查与修改范围由用户决定；段落总分结构、句位和机制分析仍严格执行。小任务只用简短工作卡；已有主线、协议与事实表直接复用。
 
----
+## 可直接复制的请求
 
-## 开发背景
+> 使用 ieee-polish。只改第 5.2 节，保留数值和比较范围。每个自然段以提案形式给出原文、改后全文和理由，我批准后落盘。
 
-通用 AI 写作工具产出的论文机器味明显,达不到顶刊顶会语言水准。差距不在模型,
-而在缺失的手艺:资深作者在真实改稿中逐段执行的那套规范。本套件把这套手艺
-固化下来。规范提炼自一篇 IEEE Transactions 稿件的逐段改稿实录、十篇已发表
-TPAMI/TIP 论文的逐节分析,以及约 60 篇 CVPR/ICCV/NeurIPS/ICML/ICLR/AAAI
-best/outstanding 论文(2021–2026)的正文精读,落成单一权威规则库与硬门控
-工作流,任何步骤不可绕过。全套工作流按投稿目标定向:投期刊载入 TPAMI/TIP
-profile,投会议载入对应顶会 profile,结构、图表、语域一律跟随目标而非固定
-IEEE 默认。
+> 使用 ieee-write。基于当前项目的方法说明和最终表格，完成一版可审查的期刊论文初稿。沿用正式主稿和已有主线，不改数值，不新增实验。
 
-## 主要功能
+> 使用 ieee-style。只审查相关工作：每个小节的第二段和定位逻辑。给出建议，暂不改正文。
 
-| 工作流 | 功能 | 硬门控 |
-|:--|:--|:--|
-| **`/ieee-write`** | 扫描代码库产出事实表,交付大纲,批准后按方法、实验、相关工作、引言、摘要、结论逐段撰写 | 大纲审批 + 每段明确 `go` |
-| **`/ieee-polish`** | 对任意 `.tex` 逐段给出"原文 → 新文"提案表,按内建规范逐句体检 | 未经 `go` 不落一字 |
-| **`/ieee-review`** | 五人设模拟外审(编辑/领域主席、方法统计、领域、写作、魔鬼代言人)+ 仅作者可见的合规审计,附决策预估 | 只读,绝不改稿 |
-| **`/ieee-style`** | 按投稿目标的全文风格符合性审查:结构、摘要模式、语域、图、表、teaser、caption、页数/模板合规,对照目标 venue profile 逐维度审 | 只读,绝不改稿 |
+入口会读取[共享工作流](core/WORKFLOW.md)和**当前单元的完整规则**。[一页清单](QUICK_REFERENCE.md) · [句位索引](core/templates/sentence-plan.md) · [工作区模板](core/templates/writing-workspace.md)。
 
-典型优势:
+## 规则覆盖什么
 
-- **按投稿目标定向而非固定 venue**:每个工作流 Stage 0 先确认投稿目标并载入
-  对应风格 profile(`core/literature/venue-style-profiles.md`):模板与页数、
-  结构配比、摘要模式、teaser 与 caption 惯例、表格用色上限、claim 语域、
-  limitations 处理全部跟随目标 venue。
-- **单源规则库**:全局文风、分章节规范、披露策略、引用政策、绘图标准、
-  venue profile、验证协议全部收敛于 `core/`,工作流整文件读取,规则无从漂移。
-- **一切实测、绝不编造**:字数、页数、编译健康度、零容忍文风扫描均由脚本
-  给出逐条计数;引用经 Crossref/OpenAlex 实时核验,配 venue 分层门禁与
-  arXiv 拦截。
-- **会反击的审稿面板**:盲评预承诺、魔鬼代言人反谄媚机制、逐条附原文证据的
-  按严重度排序意见、校准过的决策预估。
-- **模型无关内核**:纯 markdown 与脚本;自带 Claude Code 与 Codex 适配层,
-  任何能读文件、跑命令的 agent 均可驱动。
+`core/rules/` 下有九个共享规则文件；六个章节规程末尾各附一份从退稿中提炼的 `S-*-H` 加固清单。
 
-## 安装使用
+| 关注点 | 规则文件 |
+| --- | --- |
+| 推销自己的工作、正面表述、主张边界、敏感应用表述 | [voice-and-positioning.md](core/rules/voice-and-positioning.md) |
+| 一段一个论证、首句总领、观察后必分析、段末落点 | [paragraph-architecture.md](core/rules/paragraph-architecture.md) |
+| 信息顺序、连接词真值、重复控制、指代、标点 | [sentence-craft.md](core/rules/sentence-craft.md) |
+| 用词语域、禁用形式与替换建议 | [lexicon.md](core/rules/lexicon.md) |
+| 不译中文：八类中式结构及其改法 | [translation-discipline.md](core/rules/translation-discipline.md) |
+| 润色范围、保护清单、检查顺序、交付前自审 | [revising.md](core/rules/revising.md) |
+| 模拟审稿、真人意见处理、多轮联读、审阅页 | [review-loops.md](core/rules/review-loops.md) |
+| 术语、缩写、符号、公式 | [terminology-and-notation.md](core/rules/terminology-and-notation.md) |
+| 版面预算、间距、孤行、TeX 与 PDF 卫生 | [layout-and-build.md](core/rules/layout-and-build.md) |
+
+章节规程：[摘要 A1–A9](core/rules/section-abstract.md) · [引言 P1–P8](core/rules/section-introduction.md) · [相关工作](core/rules/section-related-work.md) · [方法](core/rules/section-methodology.md) · [实验 E1–E6](core/rules/section-experiments.md) · [结论](core/rules/section-conclusion.md)。证据与授权：[evidence-and-claims.md](core/rules/evidence-and-claims.md)、[citations-policy.md](core/rules/citations-policy.md)、[workflow-gates.md](core/rules/workflow-gates.md)。图：[figure-standards.md](core/rules/figure-standards.md)。
+
+## 可以立即运行的检查
+
+纯 Python 3，无第三方依赖，无网络：
 
 ```bash
-git clone git@github.com:LanEinstein/IEEE_WRITING_SKILL.git ieee-paper-suite
-cd ieee-paper-suite
-./install.sh            # Claude Code(symlink 至 ~/.claude/skills/)
-./install.sh --codex    # Codex CLI(斜杠 prompt + AGENTS.md 片段)
+python3 scripts/prose_lint.py main.tex --quiet        # H 必须为 0，再逐条看 S
+python3 scripts/pronoun_check.py main.tex --quiet     # this/these/it/its 等的候选先行词
+python3 scripts/review_page.py round.json -o round.html   # 勾选+评论页，导出 JSON
+```
+
+`prose_lint.py` 报告：中式语序与句首从属结构、因果连词成对、分词开头、禁用词表、正文冒号、同段重复连接词、句内重复短语、超长句、绝对词；并列出每个文件里重复最多的实词。H 为硬错误（必须改写），S 供人工判断，I 是给阅读测试的提示。caption 始终被扫描，`--include-floats` 另外扫描图表主体，`--banned file` 加入项目自己的词表。
+
+`review_page.py` 把一轮提案变成一个离线 HTML 页面：原文、改后（逐词差异）、理由、同意勾选、评论框、可选版本、本地保存、导出 JSON，对应 [review-loops.md](core/rules/review-loops.md) §RL4 的流程。
+
+Bash 诊断工具仍然可用：`sweep_prose.sh`、`wordcount_abstract.sh`、`check_figures_text.sh`、`verify_tex.sh`、`leak_scan.sh`、`verify_citations.py`。它们只是线索：零命中不等于正确，命中要结合上下文。范围与限制见[验证协议](core/rules/verification-protocol.md)。
+
+## 安装与调用
+
+```bash
+./install.sh            # Claude Code 技能链接
+./install.sh --codex    # Codex 技能链接、兼容 prompt 和可选 AGENTS 片段
 ./install.sh --all      # 两者
+./install.sh --check    # 自检：链接、脚本、规则文件引用
 ```
 
-随后在论文项目中唤醒 `/ieee-write`、`/ieee-polish`、`/ieee-review` 或
-`/ieee-style`。依赖:`pdflatex`、`bibtex`、`pdftotext`、POSIX 工具链、
-可联网的 Python 3。
+Codex 安装后使用 `$ieee-write`、`$ieee-polish`、`$ieee-review`、`$ieee-style`；Claude Code 使用相应 `/ieee-*`。其他 agent 直接读取指定入口，见[通用接入](adapters/generic/QUICKSTART.md)。宿主缓存技能列表时，开新会话后生效。
 
-## 目录结构
+安装器不改动项目或全局 AGENTS，已有的无关技能目录受保护。`local/config.md` 只放机器路径或本地材料指针；论文主稿、目标、文风与授权属于当前会话或项目。项目可以扩展词表（`--banned`），无须改本套文件。
 
-```
-skills/     四个入口:ieee-write / ieee-polish / ieee-review / ieee-style
-core/       单一权威:rules/ 规则、templates/ 模板、review/ 审稿、literature/ 文献
-            (含 venue-style-profiles.md 期刊/顶会风格 profile)
-scripts/    verify_tex、sweep_prose、wordcount_abstract、check_figures_text、
-            verify_citations、leak_scan
-adapters/   codex/(prompt 与 AGENTS 片段)、generic/(任意 agent 快速接入)
-local/      机器本地配置(除示例外均被 gitignore)
-```
+普通写作只需能读材料。可选检查使用 Python 3、Bash/GNU 工具、pdfLaTeX+BibTeX 和 Poppler；文献索引需要网络。优先沿用项目实际引擎；缺工具时交可用的正文，并明确标出未完成的检查。
 
-## 致谢
+## 这套规程强制什么
 
-诚挚感谢山东大学卢教授(Prof. Xiankai Lu)的指导与支持。
+- 摘要 A1–A9、引言 P1–P8：每句有任务，动机链真实，贡献与方法、证据一一对应。
+- 相关工作每主题两段；定位段两至三句、35–65 词、不长于第一段，只写继承、缺口与回应。
+- 方法：标题、主图节点、符号、轴、公式、输入输出与训练／推理状态彼此一致。
+- 实验：每段先总后分，观察之后必有分析（E1–E6），反例保留，推论限定在证据范围。
+- 润色：主张、数值、比较对象不变；未经允许不加长；每轮结束写清已应用、已否决、仍待定。
 
-## 许可证
+以上是本套期刊方法论文的写作规程，不是 IEEE 对所有论文的统一规定。真实研究内容和当前目标（会议、年份、轨道）的正式要求优先约束模板；不凑模块、贡献或新实验。理论、系统、应用类论文按其自身的证据形态适配；不存在一刀切的页数上限、只按期刊层级筛引文的规则或必须的画图要求。
 
-<div align="center">
+## 致谢与许可证
 
-© Lan Zhang · [CC BY-NC 4.0](LICENSE) · 禁止商用 · 转载须署名并标明出处
+诚挚感谢山东大学卢教授（Prof. Xiankai Lu）的指导与支持。
 
-</div>
+© 2026 Lan Zhang · [CC BY-NC 4.0](LICENSE) · 禁止商用，转载须署名。

@@ -1,11 +1,3 @@
-# /ieee-polish (IEEE Paper Suite)
+# ieee-polish — IEEE Paper Suite
 
-Run the ieee-polish workflow of the IEEE Paper Suite.
-
-1. The suite root is `{{IEEE_SKILL_ROOT}}`.
-2. Read `{{IEEE_SKILL_ROOT}}/skills/ieee-polish/SKILL.md` IN FULL.
-3. Follow the stages exactly. Wherever the SKILL says `<suite>`, use the
-   root above. Read every named core file in full before the stage that
-   needs the file.
-4. Hard gate: per paragraph, present an original-to-proposed table and
-   apply NOTHING until the user answers `go`.
+Read `{{IEEE_SKILL_ROOT}}/skills/ieee-polish/SKILL.md` in full. The suite root is `{{IEEE_SKILL_ROOT}}`. Follow its task-specific routing and load the full relevant section rules. Reuse the active manuscript, project records, and current authorization. Requested proposal-only work remains a proposal; already authorized sections do not need a go per paragraph. Review/style preserve source artifacts and may write the requested report. Scientific accuracy and verified official requirements constrain house conventions.
